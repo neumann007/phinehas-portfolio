@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans } from 'next/font/google'
+import { Plus_Jakarta_Sans, DM_Mono } from 'next/font/google'
 import './globals.css'
 import Nav from '../components/Nav'
 import { ThemeProvider } from '../components/ThemeProvider'
@@ -8,6 +8,13 @@ const plusJakarta = Plus_Jakarta_Sans({
   variable: '--font-sans',
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+})
+
+const dmMono = DM_Mono({
+  variable: '--font-mono',
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
 })
 
 export const metadata: Metadata = {
@@ -42,7 +49,7 @@ export default function RootLayout ({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en' className={plusJakarta.variable}>
+    <html lang='en' className={`${plusJakarta.variable} ${dmMono.variable}`}>
       <body className='antialiased'>
         <ThemeProvider>
           <Nav />

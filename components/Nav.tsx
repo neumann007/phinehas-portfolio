@@ -16,14 +16,18 @@ export default function Nav () {
 
   const navStyle = theme === 'dark'
     ? {
-        backgroundColor: 'rgba(10,10,10,0.85)',
-        borderBottom: '0.5px solid rgba(255,255,255,0.06)',
-        boxShadow: '0 1px 0 rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04)',
+        backgroundColor: 'rgba(10, 10, 10, 0.65)',
+        backdropFilter: 'blur(32px) saturate(180%) brightness(90%)',
+        WebkitBackdropFilter: 'blur(32px) saturate(180%) brightness(90%)',
+        borderBottom: '0.5px solid rgba(255, 255, 255, 0.08)',
+        boxShadow: '0 1px 0 rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.2)',
       }
     : {
-        backgroundColor: 'var(--nav-bg)',
-        borderBottom: '0.5px solid rgba(255,255,255,0.15)',
-        boxShadow: '0 1px 0 rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.1)',
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        backdropFilter: 'blur(32px) saturate(200%) brightness(105%)',
+        WebkitBackdropFilter: 'blur(32px) saturate(200%) brightness(105%)',
+        borderBottom: '0.5px solid rgba(255, 255, 255, 0.8)',
+        boxShadow: '0 1px 0 rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 24px rgba(0,0,0,0.04)',
       }
 
   return (
@@ -34,8 +38,6 @@ export default function Nav () {
         left: 0,
         right: 0,
         zIndex: 50,
-        backdropFilter: 'blur(20px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
         ...navStyle,
       }}
     >

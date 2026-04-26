@@ -25,7 +25,7 @@ export default function Home () {
       >
         <p
           style={{
-            fontFamily: 'monospace',
+            fontFamily: 'var(--font-mono)',
             fontSize: '11px',
             letterSpacing: '0.1em',
             color: 'var(--text-tertiary)',
@@ -37,11 +37,11 @@ export default function Home () {
         </p>
 
         <h1
-          className='serif'
           style={{
             fontSize: 'clamp(36px, 6vw, 64px)',
-            lineHeight: 1.08,
-            fontWeight: 700,
+            lineHeight: 1.05,
+            fontWeight: 800,
+            letterSpacing: '-0.03em',
             marginBottom: '2.5rem',
             maxWidth: '720px'
           }}
@@ -50,9 +50,9 @@ export default function Home () {
           <br />
           in systems and builds
           <br />
-          <em style={{ color: 'var(--teal)', fontStyle: 'italic' }}>
+          <span style={{ color: 'var(--teal)', fontWeight: 800 }}>
             things that should exist.
-          </em>
+          </span>
         </h1>
 
         <p
@@ -110,7 +110,7 @@ export default function Home () {
       >
         <p
           style={{
-            fontFamily: 'monospace',
+            fontFamily: 'var(--font-mono)',
             fontSize: '11px',
             letterSpacing: '0.1em',
             color: 'var(--text-tertiary)',
@@ -138,7 +138,7 @@ export default function Home () {
       >
         <p
           style={{
-            fontFamily: 'monospace',
+            fontFamily: 'var(--font-mono)',
             fontSize: '11px',
             letterSpacing: '0.1em',
             color: 'var(--text-tertiary)',
@@ -151,18 +151,18 @@ export default function Home () {
         <div style={{ display: 'flex', gap: '3rem', alignItems: 'flex-start' }}>
           <div style={{ flex: 1 }}>
             <h2
-              className='serif'
               style={{
                 fontSize: '28px',
                 fontWeight: 700,
+                letterSpacing: '-0.025em',
                 marginBottom: '1rem'
               }}
             >
               Everyone who visits
               <br />
-              <em style={{ color: 'var(--teal)', fontStyle: 'italic' }}>
+              <span style={{ color: 'var(--teal)', fontWeight: 700 }}>
                 leaves a trace.
-              </em>
+              </span>
             </h2>
             <p
               style={{
@@ -202,7 +202,7 @@ export default function Home () {
               justifyContent: 'center',
               color: '#2dd4bf',
               fontSize: '11px',
-              fontFamily: 'monospace',
+              fontFamily: 'var(--font-mono)',
               letterSpacing: '0.08em'
             }}
           >
@@ -226,7 +226,7 @@ export default function Home () {
         <div style={{ maxWidth: '860px', margin: '0 auto' }}>
           <p
             style={{
-              fontFamily: 'monospace',
+              fontFamily: 'var(--font-mono)',
               fontSize: '11px',
               letterSpacing: '0.1em',
               color: '#2dd4bf',
@@ -237,10 +237,10 @@ export default function Home () {
             Coming soon
           </p>
           <h2
-            className='serif'
             style={{
               fontSize: '32px',
               fontWeight: 700,
+              letterSpacing: '-0.025em',
               color: 'white',
               marginBottom: '0.75rem'
             }}
@@ -290,12 +290,12 @@ export default function Home () {
         }}
       >
         <span
-          style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-tertiary)' }}
+          style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}
         >
           Phinehas Newman · 2026
         </span>
         <span
-          style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-tertiary)' }}
+          style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}
         >
           Accra, Ghana
         </span>

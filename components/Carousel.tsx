@@ -83,7 +83,7 @@ function FlintMockup() {
           </div>
           <span style={{ fontSize: '11px', fontWeight: 700, color: 'white', letterSpacing: '0.2em' }}>FLINT</span>
         </div>
-        <p style={{ fontFamily: 'monospace', fontSize: '9px', color: '#555', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>STEP 2 OF 7 · PROFILE INTERVIEW</p>
+        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: '#555', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>STEP 2 OF 7 · PROFILE INTERVIEW</p>
         <p style={{ fontSize: '14px', fontWeight: 600, color: 'white', marginBottom: '0.5rem' }}>{`Walk me through something you made that you're genuinely proud of.`}</p>
         <p style={{ fontSize: '10px', color: '#555', marginBottom: '1rem' }}>Tell the story — not the spec</p>
         <textarea style={{ width: '100%', background: '#111', border: '0.5px solid #222', borderBottom: '1px solid #2dd4bf', color: '#ccc', fontSize: '11px', padding: '10px', resize: 'none', height: '55px', fontFamily: 'inherit', outline: 'none' }} placeholder="I built a drug distribution system for..." readOnly />
@@ -126,7 +126,7 @@ function EchoesMockup() {
         <circle cx="140" cy="100" r="71" fill="none" stroke="#020c06" strokeWidth="12" opacity="0.9"/>
       </svg>
       <div style={{ position: 'absolute', bottom: '12px', left: '16px' }}>
-        <p style={{ fontFamily: 'monospace', fontSize: '9px', color: '#2dd4bf', letterSpacing: '0.06em' }}>7 echoes · 4 countries · 1 connection</p>
+        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: '#2dd4bf', letterSpacing: '0.06em' }}>7 echoes · 4 countries · 1 connection</p>
       </div>
     </div>
   )
@@ -150,10 +150,10 @@ export default function Carousel() {
         
         {/* Info */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          <p style={{ fontFamily: 'monospace', fontSize: '10px', color: 'var(--text-tertiary)', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-tertiary)', letterSpacing: '0.08em', marginBottom: '0.5rem' }}>
             {slide.number} · {slide.category}
           </p>
-          <h3 className="serif" style={{ fontSize: '22px', fontWeight: 700, marginBottom: '0.75rem' }}>
+          <h3 style={{ fontSize: '22px', fontWeight: 700, letterSpacing: '-0.025em', marginBottom: '0.75rem' }}>
             {slide.title}
           </h3>
           <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.25rem' }}>
@@ -175,7 +175,7 @@ export default function Carousel() {
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#febc2e' }} />
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#28c840' }} />
             <div style={{ flex: 1, background: '#1a1a1a', borderRadius: '4px', padding: '3px 10px', marginLeft: '8px' }}>
-              <span style={{ fontFamily: 'monospace', fontSize: '9px', color: '#555', letterSpacing: '0.04em' }}>{slide.url}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: '#555', letterSpacing: '0.04em' }}>{slide.url}</span>
             </div>
           </div>
           <div style={{ transition: 'opacity 0.3s ease' }}>

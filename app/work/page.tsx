@@ -47,7 +47,7 @@ export default function Work () {
       >
         <p
           style={{
-            fontFamily: 'monospace',
+            fontFamily: 'var(--font-mono)',
             fontSize: '11px',
             letterSpacing: '0.1em',
             color: 'var(--text-tertiary)',
@@ -75,7 +75,7 @@ export default function Work () {
       >
         <p
           style={{
-            fontFamily: 'monospace',
+            fontFamily: 'var(--font-mono)',
             fontSize: '11px',
             letterSpacing: '0.1em',
             color: 'var(--text-tertiary)',
@@ -109,7 +109,7 @@ export default function Work () {
               {/* Number */}
               <span
                 style={{
-                  fontFamily: 'monospace',
+                  fontFamily: 'var(--font-mono)',
                   fontSize: '11px',
                   color: 'var(--text-tertiary)',
                   paddingTop: '3px',
@@ -123,7 +123,7 @@ export default function Work () {
               <div>
                 <p
                   style={{
-                    fontFamily: 'monospace',
+                    fontFamily: 'var(--font-mono)',
                     fontSize: '11px',
                     letterSpacing: '0.1em',
                     color: 'var(--text-tertiary)',
@@ -134,10 +134,10 @@ export default function Work () {
                   {project.category}
                 </p>
                 <h2
-                  className='serif'
                   style={{
                     fontSize: 'clamp(22px, 3vw, 28px)',
                     fontWeight: 700,
+                    letterSpacing: '-0.025em',
                     lineHeight: 1.15,
                     marginBottom: '1rem'
                   }}
@@ -223,12 +223,12 @@ export default function Work () {
         }}
       >
         <span
-          style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-tertiary)' }}
+          style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}
         >
           Phinehas Newman · 2026
         </span>
         <span
-          style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-tertiary)' }}
+          style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)' }}
         >
           Accra, Ghana
         </span>

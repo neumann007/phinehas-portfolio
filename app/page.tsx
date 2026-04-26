@@ -1,65 +1,305 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import Carousel from '@/components/Carousel'
+
+export default function Home () {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main style={{ paddingTop: '52px' }}>
+      {/* HERO */}
+      <section
+        style={{
+          maxWidth: '860px',
+          margin: '0 auto',
+          padding: '6rem 1.5rem 5rem'
+        }}
+      >
+        <p
+          style={{
+            fontFamily: 'monospace',
+            fontSize: '11px',
+            letterSpacing: '0.1em',
+            color: 'var(--text-tertiary)',
+            marginBottom: '2rem',
+            textTransform: 'uppercase'
+          }}
+        >
+          Accra, Ghana · Full-stack engineer · Open to work
+        </p>
+
+        <h1
+          className='serif'
+          style={{
+            fontSize: 'clamp(36px, 6vw, 64px)',
+            lineHeight: 1.08,
+            fontWeight: 700,
+            marginBottom: '2.5rem',
+            maxWidth: '720px'
+          }}
+        >
+          A developer who thinks
+          <br />
+          in systems and builds
+          <br />
+          <em style={{ color: 'var(--teal)', fontStyle: 'italic' }}>
+            things that should exist.
+          </em>
+        </h1>
+
+        <p
+          style={{
+            fontSize: '15px',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.8,
+            maxWidth: '480px',
+            marginBottom: '2.5rem'
+          }}
+        >
+          Full-stack engineer with 3 years building products, developer tools,
+          and infrastructure across Django, FastAPI, React, Next.js, PostgreSQL,
+          and DevOps.
+        </p>
+
+        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+          <Link
+            href='/work'
+            style={{
+              fontSize: '13px',
+              color: 'var(--teal)',
+              textDecoration: 'none',
+              borderBottom: '1px solid var(--teal)',
+              paddingBottom: '2px'
+            }}
+          >
+            See my work ↓
+          </Link>
+          <Link
+            href='/about'
+            style={{
+              fontSize: '13px',
+              color: 'var(--text-tertiary)',
+              textDecoration: 'none'
+            }}
+          >
+            About me →
+          </Link>
+        </div>
+      </section>
+
+      {/* DIVIDER */}
+      <div
+        style={{ height: '0.5px', background: 'var(--border)', margin: '0 1.5rem' }}
+      />
+
+      {/* CURRENTLY BUILDING */}
+      <section
+        style={{
+          maxWidth: '860px',
+          margin: '0 auto',
+          padding: '4rem 1.5rem'
+        }}
+      >
+        <p
+          style={{
+            fontFamily: 'monospace',
+            fontSize: '11px',
+            letterSpacing: '0.1em',
+            color: 'var(--text-tertiary)',
+            textTransform: 'uppercase',
+            marginBottom: '2.5rem'
+          }}
+        >
+          Currently building
+        </p>
+        <Carousel />
+      </section>
+
+      {/* DIVIDER */}
+      <div
+        style={{ height: '0.5px', background: 'var(--border)', margin: '0 1.5rem' }}
+      />
+
+      {/* ECHOES TEASER */}
+      <section
+        style={{
+          maxWidth: '860px',
+          margin: '0 auto',
+          padding: '4rem 1.5rem'
+        }}
+      >
+        <p
+          style={{
+            fontFamily: 'monospace',
+            fontSize: '11px',
+            letterSpacing: '0.1em',
+            color: 'var(--text-tertiary)',
+            textTransform: 'uppercase',
+            marginBottom: '2rem'
+          }}
+        >
+          Echoes — leave your mark
+        </p>
+        <div style={{ display: 'flex', gap: '3rem', alignItems: 'flex-start' }}>
+          <div style={{ flex: 1 }}>
+            <h2
+              className='serif'
+              style={{
+                fontSize: '28px',
+                fontWeight: 700,
+                marginBottom: '1rem'
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Everyone who visits
+              <br />
+              <em style={{ color: 'var(--teal)', fontStyle: 'italic' }}>
+                leaves a trace.
+              </em>
+            </h2>
+            <p
+              style={{
+                fontSize: '13px',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.8,
+                maxWidth: '360px',
+                marginBottom: '1.5rem'
+              }}
             >
-              Learning
-            </a>{" "}
-            center.
+              {`A living globe of signals. Drop your echo — what you're building,
+              what you can't stop thinking about. Find someone on the other side
+              of the world building what you're building.`}
+            </p>
+            <span
+              style={{
+                fontSize: '12px',
+                color: 'var(--teal)',
+                borderBottom: '1px solid var(--teal)',
+                paddingBottom: '2px',
+                cursor: 'pointer'
+              }}
+            >
+              Drop your echo ↓
+            </span>
+          </div>
+          {/* Globe placeholder — replaced when EchoesGlobe is built */}
+          <div
+            style={{
+              width: '280px',
+              height: '280px',
+              background: '#020c06',
+              borderRadius: '8px',
+              flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#2dd4bf',
+              fontSize: '11px',
+              fontFamily: 'monospace',
+              letterSpacing: '0.08em'
+            }}
+          >
+            ECHOES GLOBE
+          </div>
+        </div>
+      </section>
+
+      {/* DIVIDER */}
+      <div
+        style={{ height: '0.5px', background: 'var(--border)', margin: '0 1.5rem' }}
+      />
+
+      {/* SCRIVE TEASER — intentionally dark in both modes */}
+      <section
+        style={{
+          background: '#020c06',
+          padding: '3.5rem 1.5rem'
+        }}
+      >
+        <div style={{ maxWidth: '860px', margin: '0 auto' }}>
+          <p
+            style={{
+              fontFamily: 'monospace',
+              fontSize: '11px',
+              letterSpacing: '0.1em',
+              color: '#2dd4bf',
+              textTransform: 'uppercase',
+              marginBottom: '1rem'
+            }}
+          >
+            Coming soon
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <h2
+            className='serif'
+            style={{
+              fontSize: '32px',
+              fontWeight: 700,
+              color: 'white',
+              marginBottom: '0.75rem'
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Scrive
+          </h2>
+          <p
+            style={{
+              fontSize: '13px',
+              color: '#9FE1CB',
+              lineHeight: 1.8,
+              maxWidth: '440px',
+              marginBottom: '1.5rem'
+            }}
           >
-            Documentation
-          </a>
+            Visual project scaffolding. Design your architecture before you
+            write your first line of code.
+          </p>
+          <Link
+            href='https://scrive.dev'
+            target='_blank'
+            style={{
+              display: 'inline-block',
+              border: '0.5px solid #2dd4bf',
+              padding: '8px 18px',
+              fontSize: '12px',
+              color: '#2dd4bf',
+              textDecoration: 'none',
+              letterSpacing: '0.04em'
+            }}
+          >
+            Join the waitlist → scrive.dev
+          </Link>
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      {/* FOOTER */}
+      <footer
+        style={{
+          maxWidth: '860px',
+          margin: '0 auto',
+          padding: '1.5rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderTop: '0.5px solid var(--border)'
+        }}
+      >
+        <span
+          style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-tertiary)' }}
+        >
+          Phinehas Newman · 2026
+        </span>
+        <span
+          style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-tertiary)' }}
+        >
+          Accra, Ghana
+        </span>
+      </footer>
+    </main>
+  )
 }

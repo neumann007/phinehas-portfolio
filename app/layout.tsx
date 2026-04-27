@@ -8,19 +8,23 @@ const plusJakarta = Plus_Jakarta_Sans({
   variable: '--font-sans',
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  display: 'swap',
+  display: 'swap'
 })
 
 const dmMono = DM_Mono({
   variable: '--font-mono',
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['300', '400', '500']
 })
 
 export const metadata: Metadata = {
-  title: 'Phinehas Newman — Developer, Systems Thinker, Builder',
+  title: {
+    default: 'Phinehas Newman — Developer, Systems Thinker, Builder',
+    template: '%s | Phinehas Newman'
+  },
   description:
-    'A developer who thinks in systems and builds things that should exist. Full-stack engineer based in Accra, Ghana.',
+    'A developer who thinks in systems and builds things that should exist.',
+  // rest of your metadata
   metadataBase: new URL('https://phinehas.xyz'),
   openGraph: {
     title: 'Phinehas Newman — Developer, Systems Thinker, Builder',

@@ -40,13 +40,29 @@ export default async function Blog () {
         <p className='text-sm'>Short. Punchy. I mean them.</p>
       </div>
 
-      <div className='divider' />
+      {/* <div className='divider' /> */}
 
       <div className='takes-list'>
         {!takes || takes.length === 0 ? (
-          <p className='text-sm' style={{ padding: '3rem 0' }}>
-            No takes yet.
-          </p>
+          <div className='takes-empty'>
+            <div className='takes-empty__icon'>
+              <svg
+                width='40'
+                height='40'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='1.5'
+              >
+                <path d='M12 20h9' />
+                <path d='M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z' />
+              </svg>
+            </div>
+            <h3 className='takes-empty__heading'>No takes yet.</h3>
+            <p className='takes-empty__sub'>
+              {"Opinions are loading. Check back soon — something's brewing."}
+            </p>
+          </div>
         ) : (
           takes.map(take => (
             <Link key={take.id} href={`/blog/${take.id}`} className='take-row'>
@@ -130,7 +146,7 @@ export default async function Blog () {
         )}
       </div>
 
-      <div className='divider' />
+      {/* <div className='divider' /> */}
 
       <div className='got-a-take'>
         <p className='mono' style={{ marginBottom: '1rem' }}>

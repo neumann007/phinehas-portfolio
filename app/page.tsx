@@ -10,7 +10,7 @@ export default function Home() {
       {/* HERO */}
       <section className="hero">
         <p className="mono hero__tag">
-          Accra, Ghana · Full-stack engineer · Open to work
+          Full-stack engineer
         </p>
         <h1 className="heading-xl hero__headline">
           A developer who thinks

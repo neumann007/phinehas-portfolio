@@ -91,15 +91,19 @@ function ProjectCard ({
       >
         <span
           style={{
+            display: 'inline-block',
             fontFamily: 'var(--font-mono)',
-            fontSize: '10px',
-            color: 'var(--text-tertiary)',
-            letterSpacing: '0.06em',
+            fontSize: '9px',
+            letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            lineHeight: 1.4
+            color: 'var(--teal)',
+            background: 'var(--teal-light)',
+            padding: '2px 7px',
+            borderRadius: '3px',
+            marginBottom: '0.5rem'
           }}
         >
-          {project.category}
+          {project.type === 'solo' ? 'Solo built' : 'Collaborated'}
         </span>
         <span
           style={{
@@ -173,13 +177,7 @@ function ProjectCard ({
           href={project.link}
           target='_blank'
           rel='noopener noreferrer'
-          style={{
-            fontSize: '11px',
-            color: 'var(--teal)',
-            textDecoration: 'none',
-            borderBottom: '1px solid var(--teal)',
-            paddingBottom: '1px'
-          }}
+          className='project-card__link'
         >
           {project.link.replace('https://', '')} ↗
         </a>
@@ -232,7 +230,6 @@ export default function Projects () {
           A timeline of everything — solo and collaborative.
         </p>
       </section>
-
       {/* Thin divider */}
       <div
         style={{
@@ -241,7 +238,6 @@ export default function Projects () {
           margin: '0 1.5rem'
         }}
       />
-
       {/* Timeline */}
       <section
         style={{
@@ -360,15 +356,14 @@ export default function Projects () {
           </div>
         ))}
       </section>
-
       {/* What's next */}
-      <div
+      {/* <div
         style={{
           height: '0.5px',
           background: 'var(--border)',
           margin: '0 1.5rem'
         }}
-      />
+      /> */}
       <section
         style={{
           maxWidth: '960px',
@@ -393,7 +388,7 @@ export default function Projects () {
             fontSize: '13px',
             color: 'var(--text-secondary)',
             lineHeight: 1.8,
-            maxWidth: '480px',
+            maxWidth: '680px',
             marginBottom: '1rem'
           }}
         >
@@ -402,18 +397,11 @@ export default function Projects () {
         </p>
         <Link
           href='/about'
-          style={{
-            fontSize: '13px',
-            color: 'var(--teal)',
-            textDecoration: 'none',
-            borderBottom: '1px solid var(--teal)',
-            paddingBottom: '1px'
-          }}
+          className = 'project-card__link'
         >
           Get in touch →
         </Link>
       </section>
-
       {/* Footer */}
       <footer
         style={{
@@ -445,24 +433,19 @@ export default function Projects () {
           Accra, Ghana
         </span>
       </footer>
-
-      {/* Mobile responsive */}
+      {/* Mobile responsive */};
       <style>{`
-        @media (max-width: 640px) {
-          .timeline-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .timeline-center {
-            display: none !important;
-          }
-          .timeline-right {
-            padding-left: 0 !important;
-          }
-          .timeline-left {
-            padding-right: 0 !important;
-          }
-        }
-      `}</style>
+  @media (max-width: 640px) {
+    .timeline__labels { display: none; }
+    .timeline__row { 
+      grid-template-columns: 1fr !important; 
+      margin-bottom: 1.5rem;
+    }
+    .timeline__center { display: none !important; }
+    .timeline__col-left { padding-right: 0 !important; }
+    .timeline__col-right { padding-left: 0 !important; }
+  }
+`}</style>
     </main>
   )
 }

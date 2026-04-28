@@ -3,159 +3,155 @@ import Link from 'next/link'
 
 export const revalidate = 60
 
-export const metadata = { title: 'Takes — Phinehas Newman' }
-
-type TakeRow = {
-  id: string
-  take: string
-  tag: string
-  date: string
-  likes: number
-  dislikes: number
-  order_index: number
-}
-
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-const divider: React.CSSProperties = {
-  height: '0.5px',
-  background: 'var(--border)',
-  margin: '0 1.5rem',
-}
-
-const monoSm: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: '11px',
-  letterSpacing: '0.08em',
-}
-
 export default async function Blog () {
-  const [{ data: takes }, { data: commentCounts }] = await Promise.all([
-    supabase
-      .from('takes')
-      .select('id, take, tag, date, likes, dislikes, order_index')
-      .eq('published', true)
-      .order('order_index', { ascending: true }),
-    supabase
-      .from('take_comments')
-      .select('take_id')
-      .eq('approved', true),
-  ])
+  const { data: takes } = await supabase
+    .from('takes')
+    .select('id, take, tag, date, likes, dislikes, order_index')
+    .eq('published', true)
+    .order('order_index', { ascending: true })
+
+  const { data: commentCounts } = await supabase
+    .from('take_comments')
+    .select('take_id')
+    .eq('approved', true)
 
   const countMap: Record<string, number> = {}
   commentCounts?.forEach(c => {
-    countMap[c.take_id] = (countMap[c.take_id] ?? 0) + 1
+    countMap[c.take_id] = (countMap[c.take_id] || 0) + 1
   })
 
-  const takeList: TakeRow[] = takes ?? []
-
   return (
-    <main style={{ paddingTop: '72px' }}>
-
-      {/* ── HEADER ── */}
-      <section style={{ maxWidth: '960px', margin: '0 auto', padding: '4rem 1.5rem 3rem' }}>
-        <p style={{ ...monoSm, letterSpacing: '0.1em', color: 'var(--text-tertiary)', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
+    <main className='page'>
+      <div className='blog-header'>
+        <p className='mono' style={{ marginBottom: '1.25rem' }}>
           Takes
         </p>
-        <h1 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.05, maxWidth: '600px' }}>
+        <h1
+          className='heading-lg'
+          style={{ maxWidth: '600px', marginBottom: '0.75rem' }}
+        >
           Opinions on software, tools, and the industry.
         </h1>
-        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '0.75rem', letterSpacing: '-0.005em' }}>
-          Short. Punchy. I mean them.
-        </p>
-      </section>
+        <p className='text-sm'>Short. Punchy. I mean them.</p>
+      </div>
 
-      <div style={divider} />
+      <div className='divider' />
 
-      {/* ── TAKES LIST ── */}
-      <section style={{ maxWidth: '960px', margin: '0 auto', padding: '0 1.5rem' }}>
-        {takeList.length === 0 ? (
-          <p style={{ fontSize: '14px', color: 'var(--text-tertiary)', padding: '3rem 0' }}>
-            No takes yet. Check back soon.
+      <div className='takes-list'>
+        {!takes || takes.length === 0 ? (
+          <p className='text-sm' style={{ padding: '3rem 0' }}>
+            No takes yet.
           </p>
         ) : (
-          takeList.map((take, index) => (
-            <div key={take.id}>
-              <TakeRow take={take} commentCount={countMap[take.id] ?? 0} />
-              {index < takeList.length - 1 && (
-                <div style={{ height: '0.5px', background: 'var(--border)' }} />
-              )}
-            </div>
+          takes.map(take => (
+            <Link key={take.id} href={`/blog/${take.id}`} className='take-row'>
+              <div className='take-row__meta'>
+                <span className='take-row__tag'>{take.tag}</span>
+                <span className='take-row__date'>{take.date}</span>
+              </div>
+              <p className='take-row__headline'>{take.take}</p>
+              <div className='take-row__footer'>
+                <div className='take-row__reactions'>
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    <svg
+                      width='13'
+                      height='13'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    >
+                      <path d='M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z' />
+                      <path d='M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3' />
+                    </svg>
+                    {take.likes}
+                  </span>
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    <svg
+                      width='13'
+                      height='13'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    >
+                      <path d='M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z' />
+                      <path d='M17 2h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17' />
+                    </svg>
+                    {take.dislikes}
+                  </span>
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}
+                  >
+                    <svg
+                      width='13'
+                      height='13'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                    >
+                      <path d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' />
+                    </svg>
+                    {countMap[take.id] ?? 0}
+                  </span>
+                </div>
+                <span className='take-row__arrow'>→</span>
+              </div>
+            </Link>
           ))
         )}
-      </section>
+      </div>
 
-      <div style={divider} />
+      <div className='divider' />
 
-      {/* ── CTA ── */}
-      <section style={{ maxWidth: '960px', margin: '0 auto', padding: '3.5rem 1.5rem' }}>
-        <p style={{ ...monoSm, letterSpacing: '0.1em', color: 'var(--text-tertiary)', textTransform: 'uppercase', marginBottom: '2rem' }}>
+      <div className='got-a-take'>
+        <p className='mono' style={{ marginBottom: '1rem' }}>
           Got a take?
         </p>
-        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.8, letterSpacing: '-0.005em' }}>
-          Disagree with something? Have a stronger opinion? I&apos;m always up for the argument.
-        </p>
-        <a
-          href='mailto:phinehasnewman@gmail.com'
-          style={{ fontSize: '13px', color: 'var(--teal)', textDecoration: 'none', marginTop: '0.75rem', display: 'block' }}
+        <p
+          className='text-body'
+          style={{ maxWidth: '480px', marginBottom: '0.75rem' }}
         >
+          Disagree with something? Have a stronger opinion? I&apos;m always up
+          for the argument.
+        </p>
+        <a href='mailto:phinehasnewman@gmail.com' className='link-teal'>
           phinehasnewman@gmail.com →
         </a>
-      </section>
+      </div>
 
-      {/* ── FOOTER ── */}
-      <footer style={{ maxWidth: '960px', margin: '0 auto', padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '0.5px solid var(--border)' }}>
-        <span style={{ ...monoSm, color: 'var(--text-tertiary)' }}>Phinehas Newman · 2026</span>
-        <span style={{ ...monoSm, color: 'var(--text-tertiary)' }}>Accra, Ghana</span>
+      <footer className='footer container'>
+        <span className='mono'>Phinehas Newman · 2026</span>
+        <span className='mono'>Accra, Ghana</span>
       </footer>
     </main>
-  )
-}
-
-// ── Row sub-component (server, no state needed) ──────────────────────────
-function TakeRow ({ take, commentCount }: { take: TakeRow; commentCount: number }) {
-  return (
-    <Link
-      href={`/blog/${take.id}`}
-      style={{ display: 'block', padding: '2rem 0', textDecoration: 'none', color: 'inherit' }}
-      className='take-row'
-    >
-      <style>{`
-        .take-row:hover .take-headline { color: var(--teal); }
-        .take-row .take-headline { transition: color 0.15s ease; }
-      `}</style>
-
-      {/* Tag + date */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--teal)' }}>
-          {take.tag}
-        </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-tertiary)', letterSpacing: '0.04em' }}>
-          {take.date}
-        </span>
-      </div>
-
-      {/* Take headline */}
-      <p className='take-headline' style={{ fontWeight: 700, fontSize: '20px', letterSpacing: '-0.02em', lineHeight: 1.3, color: 'var(--text-primary)', marginBottom: '1rem' }}>
-        {take.take}
-      </p>
-
-      {/* Metadata row */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-tertiary)' }}>
-          👍 {take.likes ?? 0}
-        </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-tertiary)' }}>
-          👎 {take.dislikes ?? 0}
-        </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-tertiary)' }}>
-          💬 {commentCount} {commentCount === 1 ? 'comment' : 'comments'}
-        </span>
-        <span style={{ marginLeft: 'auto', fontSize: '14px', color: 'var(--text-tertiary)' }}>→</span>
-      </div>
-    </Link>
   )
 }

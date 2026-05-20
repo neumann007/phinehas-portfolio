@@ -3504,7 +3504,7 @@ a.link-muted:active,
 .code-typewriter__body {
   display: flex;
   flex-direction: row;
-  padding: 16px 0;
+  padding: 0;
   height: auto;
   min-height: unset;
   overflow: visible;
@@ -3515,7 +3515,7 @@ a.link-muted:active,
   font-size: 13px;
   line-height: 1.7;
   color: #3d4350;
-  padding: 0;
+  padding: 16px 0;
   min-width: 52px;
   text-align: right;
   user-select: none;
@@ -3526,29 +3526,28 @@ a.link-muted:active,
 }
 
 .code-typewriter__line-number {
-  line-height: 1.7;
+  height: 1.7em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   font-size: 13px;
   font-family: 'Fira Code', 'Cascadia Code', monospace;
   color: #3d4350;
-  text-align: right;
-  padding-right: 4px;
+  padding-right: 12px;
+  padding-left: 8px;
   border-left: 2px solid transparent;
-  padding-left: 6px;
+  box-sizing: border-box;
   transition: all 0.3s ease;
 }
 
 .code-typewriter__line-number--warning {
-  color: #f59e0b !important;
-  border-left: 3px solid #f59e0b !important;
-  background: rgba(245, 158, 11, 0.12) !important;
-  padding-left: 8px;
+  color: #f59e0b;
+  border-left-color: #f59e0b;
 }
 
 .code-typewriter__line-number--insight {
-  color: #00D4FF !important;
-  border-left: 3px solid #00D4FF !important;
-  background: rgba(0, 212, 255, 0.12) !important;
-  padding-left: 8px;
+  color: #00D4FF;
+  border-left-color: #00D4FF;
 }
 
 .code-typewriter__code-wrap {
@@ -3558,10 +3557,13 @@ a.link-muted:active,
 }
 
 .code-typewriter__code {
+  display: block;
+  position: relative;
+  z-index: 1;
   font-family: 'Fira Code', 'Cascadia Code', monospace;
   font-size: 13px;
   line-height: 1.7;
-  padding: 0 20px;
+  padding: 16px 20px;
   flex: 1;
   color: #abb2bf;
   white-space: pre;
@@ -3685,7 +3687,7 @@ a.link-muted:active,
 
 [data-theme='light'] .code-typewriter__statusbar,
 :root[data-theme='light'] .code-typewriter__statusbar {
-  background: #007acc;
+  background: #0891b2;
   border-top-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -3696,7 +3698,7 @@ a.link-muted:active,
 
 [data-theme='light'] .code-typewriter__status-item--branch,
 :root[data-theme='light'] .code-typewriter__status-item--branch {
-  background: #005f9e;
+  background: #0e7490;
 }
 
 [data-theme='dark'] .code-typewriter__statusbar,
@@ -3769,19 +3771,19 @@ a.link-muted:active,
   }
 
   .code-typewriter__body {
-    overflow: hidden;
+    overflow: visible;
   }
 
   .code-typewriter__code {
     font-size: 11px;
-    padding: 0 12px;
+    padding: 16px 12px;
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
   }
 
   .code-typewriter__lines {
     font-size: 11px;
-    padding: 0 8px;
+    padding: 16px 0;
     min-width: 32px;
   }
 }
@@ -4134,66 +4136,86 @@ a.link-muted:active,
 .lab-annotation {
   position: absolute;
   right: 12px;
-  max-width: 280px;
-  background: #111113;
-  border-radius: 8px;
-  padding: 10px 12px;
-  border-left: 3px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  padding: 2px 10px 2px 7px;
+  white-space: nowrap;
   z-index: 10;
-  animation: lab-slide-in 0.3s ease both;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  cursor: default;
+  animation: ann-pop 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-@keyframes lab-slide-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes ann-pop {
+  from { opacity: 0; transform: scale(0.8) translateY(4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .lab-annotation--warning {
-  border-left-color: #e5c07b;
-  background: rgba(229, 192, 107, 0.06);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.45);
 }
+.lab-annotation--warning .lab-annotation__icon  { color: #f59e0b; }
+.lab-annotation--warning .lab-annotation__short { color: #f59e0b; }
 
 .lab-annotation--insight {
-  border-left-color: #2dd4bf;
-  background: rgba(45, 212, 191, 0.06);
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.4);
 }
-
-.lab-annotation__header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
+.lab-annotation--insight .lab-annotation__icon  { color: #00D4FF; }
+.lab-annotation--insight .lab-annotation__short { color: #00D4FF; }
 
 .lab-annotation__icon {
-  font-size: 11px;
+  font-size: 10px;
+  flex-shrink: 0;
 }
-
-.lab-annotation--warning .lab-annotation__icon { color: #e5c07b; }
-.lab-annotation--insight .lab-annotation__icon  { color: #2dd4bf; }
 
 .lab-annotation__short {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.lab-annotation__line {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.3);
-  margin-left: auto;
 }
 
 .lab-annotation__detail {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.6;
-  margin: 0;
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #111113;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.55;
+  white-space: normal;
+  width: 220px;
+  z-index: 20;
+}
+
+.lab-annotation:hover .lab-annotation__detail {
+  display: block;
+}
+
+/* line highlight strips */
+.code-typewriter__line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.7em;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.code-typewriter__line-highlight--warning {
+  background: rgba(245, 158, 11, 0.07);
+  border-left: 2px solid rgba(245, 158, 11, 0.5);
+}
+
+.code-typewriter__line-highlight--insight {
+  background: rgba(0, 212, 255, 0.06);
+  border-left: 2px solid rgba(0, 212, 255, 0.45);
 }
 
 /* syntax highlight classes (TheLab) */

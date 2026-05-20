@@ -226,6 +226,15 @@ export default function TheLab() {
               })}
             </div>
             <div className='code-typewriter__code-wrap'>
+              {act.annotations
+                .filter(ann => shownAnnotations.includes(ann.line))
+                .map((ann, i) => (
+                  <div
+                    key={`hl-${i}`}
+                    className={`code-typewriter__line-highlight code-typewriter__line-highlight--${ann.type}`}
+                    style={{ top: `calc(${ann.line - 1} * 1.7em + 16px)` }}
+                  />
+                ))}
               <code
                 className='code-typewriter__code'
                 dangerouslySetInnerHTML={{

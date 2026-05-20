@@ -202,16 +202,45 @@ export default function TheLab() {
         <span className="lab-tracker__tag">{exp.tag}</span>
       </div>
 
-      {/* brief/verdict card — shown outside IDE during non-code phases */}
-      {(phase === 'brief' || phase === 'verdict') && (
+      {/* brief card */}
+      {phase === 'brief' && (
         <div className={`lab-card${visible ? ' lab-card--visible' : ''}`}>
-          <p className='lab-brief__num'>
-            {phase === 'verdict' ? `Verdict · ${exp.tag}` : exp.tag}
-          </p>
+          <p className='lab-brief__num'>{exp.tag}</p>
           <h3 className='lab-brief__title'>{exp.title}</h3>
-          <p className='lab-brief__text'>
-            {phase === 'verdict' ? exp.verdict : exp.brief}
-          </p>
+          <p className='lab-brief__text'>{exp.brief}</p>
+        </div>
+      )}
+
+      {/* verdict card */}
+      {phase === 'verdict' && (
+        <div className={`lab-verdict-card${visible ? ' lab-verdict-card--visible' : ''}`}>
+          <div className='lab-verdict-card__eyebrow'>
+            <span className='lab-verdict-card__icon'>◈</span>
+            <span className='lab-verdict-card__label'>The Takeaway</span>
+          </div>
+          <blockquote className='lab-verdict-card__quote'>
+            {exp.verdict}
+          </blockquote>
+          <div className='lab-verdict-card__footer'>
+            <span className='lab-verdict-card__tag'>{exp.tag}</span>
+            <span className='lab-verdict-card__next'>Next experiment →</span>
+          </div>
+        </div>
+      )}
+
+      {/* phase cues */}
+      {phase === 'naive' && (
+        <div className='lab-phase-cue lab-phase-cue--naive'>
+          <span className='lab-phase-cue__line' />
+          <span className='lab-phase-cue__text'>Here's how most developers approach this...</span>
+          <span className='lab-phase-cue__line' />
+        </div>
+      )}
+      {phase === 'expert' && (
+        <div className='lab-phase-cue lab-phase-cue--expert'>
+          <span className='lab-phase-cue__line' />
+          <span className='lab-phase-cue__text'>Here's how a senior engineer rewrites it...</span>
+          <span className='lab-phase-cue__line' />
         </div>
       )}
 

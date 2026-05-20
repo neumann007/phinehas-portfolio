@@ -3996,6 +3996,117 @@ a.link-muted:active,
   max-width: 560px;
 }
 
+/* verdict card */
+.lab-verdict-card {
+  border-radius: 14px;
+  padding: 2rem;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 212, 255, 0.06) 0%,
+    rgba(124, 92, 252, 0.06) 100%
+  );
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.lab-verdict-card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lab-verdict-card__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+.lab-verdict-card__icon {
+  font-size: 16px;
+  color: var(--teal);
+  line-height: 1;
+}
+.lab-verdict-card__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.lab-verdict-card__quote {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-primary);
+  font-style: italic;
+  margin: 0 0 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--teal);
+}
+.lab-verdict-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lab-verdict-card__tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: var(--bg-secondary);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.lab-verdict-card__next {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  animation: lab-next-pulse 2s ease-in-out infinite;
+}
+@keyframes lab-next-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+[data-theme='light'] .lab-verdict-card {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 180, 210, 0.05) 0%,
+    rgba(100, 70, 220, 0.04) 100%
+  );
+  border-color: rgba(0, 150, 180, 0.2);
+}
+[data-theme='light'] .lab-verdict-card__quote {
+  color: #1a1a2e;
+}
+
+/* phase cues */
+.lab-phase-cue {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 4px;
+}
+.lab-phase-cue__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.lab-phase-cue__text {
+  font-size: 12px;
+  font-style: italic;
+  white-space: nowrap;
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;
+}
+.lab-phase-cue--naive .lab-phase-cue__text {
+  color: var(--text-secondary);
+}
+.lab-phase-cue--expert .lab-phase-cue__text {
+  color: var(--teal);
+  opacity: 0.8;
+}
+
 /* code view */
 .lab-code-view {
   display: flex;

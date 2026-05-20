@@ -4083,28 +4083,52 @@ a.link-muted:active,
 /* phase cues */
 .lab-phase-cue {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 4px;
+  flex-direction: column;
+  gap: 4px;
+  padding: 2rem 0 1rem;
 }
 .lab-phase-cue__line {
-  flex: 1;
-  height: 1px;
-  background: var(--border);
+  display: none;
+}
+.lab-phase-cue--naive::before {
+  content: '01 — THE PROBLEM';
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+.lab-phase-cue--expert::before {
+  content: '02 — THE SOLUTION';
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--teal);
+  opacity: 0.7;
+  margin-bottom: 6px;
 }
 .lab-phase-cue__text {
-  font-size: 12px;
-  font-style: italic;
-  white-space: nowrap;
-  color: var(--text-tertiary);
-  letter-spacing: 0.01em;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  font-style: normal;
+  white-space: normal;
+  color: var(--text-primary);
 }
 .lab-phase-cue--naive .lab-phase-cue__text {
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 .lab-phase-cue--expert .lab-phase-cue__text {
-  color: var(--teal);
-  opacity: 0.8;
+  background: linear-gradient(90deg, var(--teal), #7C5CFC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme='light'] .lab-phase-cue__text {
+  color: #0f0f0f;
 }
 
 /* code view */

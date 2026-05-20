@@ -3507,7 +3507,7 @@ a.link-muted:active,
   padding: 16px 0;
   height: auto;
   min-height: unset;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .code-typewriter__lines {
@@ -3549,6 +3549,12 @@ a.link-muted:active,
   border-left: 3px solid #00D4FF !important;
   background: rgba(0, 212, 255, 0.12) !important;
   padding-left: 8px;
+}
+
+.code-typewriter__code-wrap {
+  position: relative;
+  overflow: visible;
+  flex: 1;
 }
 
 .code-typewriter__code {
@@ -3812,6 +3818,27 @@ a.link-muted:active,
   margin: 0 auto;
   padding: 0 1.5rem 4rem;
   width: 100%;
+}
+
+/* brief/verdict card */
+.lab-card {
+  width: 100%;
+  background: #0d0d0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  padding: 3rem 2.5rem;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.lab-card--visible {
+  opacity: 1;
 }
 
 /* tracker */
@@ -4105,13 +4132,18 @@ a.link-muted:active,
 }
 
 .lab-annotation {
-  flex: 1;
-  min-width: 220px;
+  position: absolute;
+  right: 12px;
+  max-width: 280px;
   background: #111113;
   border-radius: 8px;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-left: 3px solid transparent;
+  z-index: 10;
   animation: lab-slide-in 0.3s ease both;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 @keyframes lab-slide-in {

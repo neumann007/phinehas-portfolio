@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { experiments, Annotation } from '@/lib/lab-experiments'
+import { experiments } from '@/lib/lab-experiments'
 
 type Phase = 'brief' | 'naive' | 'expert' | 'verdict'
 
@@ -148,133 +148,129 @@ export default function TheLab() {
 
   const displayedLines = displayed.split('\n')
   const lineCount = displayedLines.length
-  const activeAnnotations: Annotation[] =
-    act ? act.annotations.filter(a => shownAnnotations.includes(a.line)) : []
+  const currentCol = displayedLines[displayedLines.length - 1].length + 1
+
+  // Always derive status bar data from experiment's naive language
+  const lang = exp.naive.language
+  const langLabel = lang.charAt(0).toUpperCase() + lang.slice(1)
+  const langMessages = statusByLang[lang] ?? ['Ready']
+  const langBranches = branchByLang[lang] ?? ['main']
+  const currentMessage = langMessages[expIndex % langMessages.length]
+  const currentBranch = langBranches[expIndex % langBranches.length]
 
   const tabFilename =
     phase === 'naive'  ? exp.naive.filename  :
     phase === 'expert' ? exp.expert.filename :
                          'overview.md'
 
-  const currentLang = act?.language ?? 'python'
-  const langLabel = (act?.language ?? 'markdown').charAt(0).toUpperCase() +
-    (act?.language ?? 'markdown').slice(1)
-  const langMessages = statusByLang[currentLang] ?? ['Ready']
-  const langBranches = branchByLang[currentLang] ?? ['main']
-  const currentMessage = langMessages[expIndex % langMessages.length]
-  const currentBranch = langBranches[expIndex % langBranches.length]
-  const currentCol = displayedLines[displayedLines.length - 1].length + 1
-
   return (
     <section className="the-lab">
 
-      {/* tag strip */}
+      {/* tag strip — always visible */}
       <div className="lab-tracker">
         <span className="lab-tracker__counter">The Lab</span>
         <span className="lab-tracker__tag">{exp.tag}</span>
       </div>
 
-      {/* IDE window — identical class structure to CodeTypewriter */}
-      <div className={`code-typewriter${visible ? ' code-typewriter--visible' : ''}`}>
-
-        {/* titlebar */}
-        <div className='code-typewriter__titlebar'>
-          <div className='code-typewriter__titlebar-dots'>
-            <span className='code-typewriter__dot' style={{ background: '#FF5F57' }} />
-            <span className='code-typewriter__dot' style={{ background: '#FEBC2E' }} />
-            <span className='code-typewriter__dot' style={{ background: '#28C840' }} />
-          </div>
-          <span className='code-typewriter__titlebar-text'>phinehas — lab</span>
-          <div />
+      {/* brief/verdict card — shown outside IDE during non-code phases */}
+      {(phase === 'brief' || phase === 'verdict') && (
+        <div className={`lab-card${visible ? ' lab-card--visible' : ''}`}>
+          <p className='lab-brief__num'>
+            {phase === 'verdict' ? `Verdict · ${exp.tag}` : exp.tag}
+          </p>
+          <h3 className='lab-brief__title'>{exp.title}</h3>
+          <p className='lab-brief__text'>
+            {phase === 'verdict' ? exp.verdict : exp.brief}
+          </p>
         </div>
+      )}
 
-        {/* tabbar */}
-        <div className='code-typewriter__tabbar'>
-          <div className='code-typewriter__tab code-typewriter__tab--active'>
-            <span className='code-typewriter__tab-dot' />
-            {tabFilename}
-          </div>
-        </div>
+      {/* IDE window — only during code phases */}
+      {(phase === 'naive' || phase === 'expert') && act && (
+        <div className={`code-typewriter${visible ? ' code-typewriter--visible' : ''}`}>
 
-        {/* body */}
-        <div className='code-typewriter__body'>
-          {(phase === 'brief' || phase === 'verdict') ? (
-            <div className='lab-brief'>
-              <p className='lab-brief__num'>
-                {phase === 'verdict' ? `Verdict · ${exp.tag}` : exp.tag}
-              </p>
-              <h3 className='lab-brief__title'>{exp.title}</h3>
-              <p className='lab-brief__text'>
-                {phase === 'verdict' ? exp.verdict : exp.brief}
-              </p>
+          {/* titlebar */}
+          <div className='code-typewriter__titlebar'>
+            <div className='code-typewriter__titlebar-dots'>
+              <span className='code-typewriter__dot' style={{ background: '#FF5F57' }} />
+              <span className='code-typewriter__dot' style={{ background: '#FEBC2E' }} />
+              <span className='code-typewriter__dot' style={{ background: '#28C840' }} />
             </div>
-          ) : (
-            act && (
-              <>
-                <div className='code-typewriter__lines' aria-hidden='true'>
-                  {Array.from({ length: lineCount }, (_, i) => {
-                    const lineNum = i + 1
-                    const ann = act.annotations.find(a => a.line === lineNum)
-                    const isHighlighted = ann && shownAnnotations.includes(lineNum)
-                    return (
-                      <div
-                        key={lineNum}
-                        className={`code-typewriter__line-number${isHighlighted ? ` code-typewriter__line-number--${ann!.type}` : ''}`}
-                      >
-                        {lineNum}
-                      </div>
-                    )
-                  })}
-                </div>
-                <code
-                  className='code-typewriter__code'
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      highlight(displayed) +
-                      '<span class="code-typewriter__cursor"></span>',
-                  }}
-                />
-              </>
-            )
-          )}
-        </div>
+            <span className='code-typewriter__titlebar-text'>phinehas — lab</span>
+            <div />
+          </div>
 
-        {/* statusbar */}
-        <div className='code-typewriter__statusbar'>
-          <span className='code-typewriter__status-item code-typewriter__status-item--branch'>
-            ⎇  {currentBranch}
-          </span>
-          <span className='code-typewriter__status-item code-typewriter__status-item--message'>
-            {currentMessage}
-          </span>
-          <span className='code-typewriter__status-item code-typewriter__status-item--right'>
-            {langLabel}
-          </span>
-          {(phase === 'naive' || phase === 'expert') && (
+          {/* tabbar */}
+          <div className='code-typewriter__tabbar'>
+            <div className='code-typewriter__tab code-typewriter__tab--active'>
+              <span className='code-typewriter__tab-dot' />
+              {tabFilename}
+            </div>
+          </div>
+
+          {/* body */}
+          <div className='code-typewriter__body'>
+            <div className='code-typewriter__lines' aria-hidden='true'>
+              {Array.from({ length: lineCount }, (_, i) => {
+                const lineNum = i + 1
+                const ann = act.annotations.find(a => a.line === lineNum)
+                const isHighlighted = ann && shownAnnotations.includes(lineNum)
+                return (
+                  <div
+                    key={lineNum}
+                    className={`code-typewriter__line-number${isHighlighted ? ` code-typewriter__line-number--${ann!.type}` : ''}`}
+                  >
+                    {lineNum}
+                  </div>
+                )
+              })}
+            </div>
+            <div className='code-typewriter__code-wrap'>
+              <code
+                className='code-typewriter__code'
+                dangerouslySetInnerHTML={{
+                  __html:
+                    highlight(displayed) +
+                    '<span class="code-typewriter__cursor"></span>',
+                }}
+              />
+              {act.annotations
+                .filter(ann => shownAnnotations.includes(ann.line))
+                .map((ann, i) => (
+                  <div
+                    key={i}
+                    className={`lab-annotation lab-annotation--${ann.type}`}
+                    style={{ top: `calc(${ann.line - 1} * 1.7em + 16px)` }}
+                  >
+                    <span className='lab-annotation__icon'>
+                      {ann.type === 'warning' ? '⚠' : '✦'}
+                    </span>
+                    <span className='lab-annotation__short'>{ann.short}</span>
+                    <div className='lab-annotation__detail'>{ann.detail}</div>
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          {/* statusbar */}
+          <div className='code-typewriter__statusbar'>
+            <span className='code-typewriter__status-item code-typewriter__status-item--branch'>
+              ⎇  {currentBranch}
+            </span>
+            <span className='code-typewriter__status-item code-typewriter__status-item--message'>
+              {currentMessage}
+            </span>
+            <span className='code-typewriter__status-item code-typewriter__status-item--right'>
+              {langLabel}
+            </span>
             <span className='code-typewriter__status-item code-typewriter__status-item--right'>
               Ln {lineCount}, Col {currentCol}
             </span>
-          )}
-          <span className='code-typewriter__status-item code-typewriter__status-item--right'>
-            UTF-8  LF
-          </span>
-        </div>
+            <span className='code-typewriter__status-item code-typewriter__status-item--right'>
+              UTF-8  LF
+            </span>
+          </div>
 
-      </div>
-
-      {/* annotation pills */}
-      {activeAnnotations.length > 0 && (
-        <div className='lab-annotations'>
-          {activeAnnotations.map((ann, i) => (
-            <div key={i} className={`lab-annotation lab-annotation--${ann.type}`}>
-              <div className='lab-annotation__header'>
-                <span className='lab-annotation__icon'>{ann.type === 'warning' ? '⚠' : '●'}</span>
-                <span className='lab-annotation__short'>{ann.short}</span>
-                <span className='lab-annotation__line'>L{ann.line}</span>
-              </div>
-              <p className='lab-annotation__detail'>{ann.detail}</p>
-            </div>
-          ))}
         </div>
       )}
 

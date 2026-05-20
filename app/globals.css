@@ -3516,7 +3516,7 @@ a.link-muted:active,
   line-height: 1.7;
   color: #3d4350;
   padding: 0;
-  min-width: 48px;
+  min-width: 52px;
   text-align: right;
   user-select: none;
   flex-shrink: 0;
@@ -3538,15 +3538,17 @@ a.link-muted:active,
 }
 
 .code-typewriter__line-number--warning {
-  color: #f59e0b;
-  border-left-color: #f59e0b;
-  background: rgba(245, 158, 11, 0.06);
+  color: #f59e0b !important;
+  border-left: 3px solid #f59e0b !important;
+  background: rgba(245, 158, 11, 0.12) !important;
+  padding-left: 8px;
 }
 
 .code-typewriter__line-number--insight {
-  color: var(--teal);
-  border-left-color: var(--teal);
-  background: rgba(0, 212, 255, 0.06);
+  color: #00D4FF !important;
+  border-left: 3px solid #00D4FF !important;
+  background: rgba(0, 212, 255, 0.12) !important;
+  padding-left: 8px;
 }
 
 .code-typewriter__code {

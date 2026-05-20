@@ -52,6 +52,40 @@ function highlight(code: string): string {
   return code.split('\n').map(highlightLine).join('\n')
 }
 
+// ── Status bar data (keyed by language) ───────────────────────────────────────
+
+const statusByLang: Record<string, string[]> = {
+  python: [
+    'FastAPI · Uvicorn running on port 8000',
+    'Django · Migrations: 24 applied · 0 pending',
+    'Celery · 3 workers active · Queue depth: 0',
+    'Redis · Connected · 0ms latency',
+  ],
+  typescript: [
+    'TypeScript · No type errors · ESLint clean',
+    'Next.js · HMR active · Page compiled in 214ms',
+    'React · 0 hook violations · Bundle: 142kb',
+    'Vite · Dev server ready · Hot reload active',
+  ],
+  go: [
+    'Go · go vet passed · No race conditions',
+    'Go · goroutines: 4 · heap: 2.1 MB',
+    'Go · Build succeeded · Binary: 6.2 MB',
+  ],
+  rust: [
+    'Rust · cargo check · 0 warnings',
+    'Rust · cargo build · Compiling (3/8 crates)',
+    'Rust · Clippy clean · No unsafe blocks',
+  ],
+}
+
+const branchByLang: Record<string, string[]> = {
+  python:     ['feat/cache-layer', 'feat/auth', 'feat/task-queue', 'main'],
+  typescript: ['feat/deck-ui', 'feat/animations', 'main'],
+  go:         ['feat/worker-pool', 'feat/router', 'main'],
+  rust:       ['feat/bloom-filter', 'main'],
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function TheLab() {
@@ -99,15 +133,15 @@ export default function TheLab() {
       i++
       if (i > full.length) {
         clearInterval(iv)
-        currentAct.annotations.forEach((_, idx) => {
-          setTimeout(() => setShownAnnotations(prev => [...prev, idx]), (idx + 1) * 650)
+        currentAct.annotations.forEach((ann, idx) => {
+          setTimeout(() => setShownAnnotations(prev => [...prev, ann.line]), (idx + 1) * 650)
         })
         const next: Phase = phase === 'naive' ? 'expert' : 'verdict'
         setTimeout(() => fadeIn(() => setPhase(next)), 14000)
         return
       }
       setDisplayed(full.slice(0, i))
-    }, 28)
+    }, 120)
 
     return () => clearInterval(iv)
   }, [expIndex, phase]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -115,18 +149,21 @@ export default function TheLab() {
   const displayedLines = displayed.split('\n')
   const lineCount = displayedLines.length
   const activeAnnotations: Annotation[] =
-    act ? shownAnnotations.map(i => act.annotations[i]).filter(Boolean) : []
+    act ? act.annotations.filter(a => shownAnnotations.includes(a.line)) : []
 
   const tabFilename =
     phase === 'naive'  ? exp.naive.filename  :
     phase === 'expert' ? exp.expert.filename :
                          'overview.md'
 
-  const statusMessage =
-    phase === 'naive'   ? '⚠ naive approach'    :
-    phase === 'expert'  ? '✓ expert refactor'    :
-    phase === 'verdict' ? `verdict · ${exp.tag}` :
-                          `experiment ${exp.number} of ${experiments.length}`
+  const currentLang = act?.language ?? 'python'
+  const langLabel = (act?.language ?? 'markdown').charAt(0).toUpperCase() +
+    (act?.language ?? 'markdown').slice(1)
+  const langMessages = statusByLang[currentLang] ?? ['Ready']
+  const langBranches = branchByLang[currentLang] ?? ['main']
+  const currentMessage = langMessages[expIndex % langMessages.length]
+  const currentBranch = langBranches[expIndex % langBranches.length]
+  const currentCol = displayedLines[displayedLines.length - 1].length + 1
 
   return (
     <section className="the-lab">
@@ -177,13 +214,12 @@ export default function TheLab() {
                 <div className='code-typewriter__lines' aria-hidden='true'>
                   {Array.from({ length: lineCount }, (_, i) => {
                     const lineNum = i + 1
-                    const ann = act.annotations.find(
-                      (a, idx) => a.line === lineNum && shownAnnotations.includes(idx),
-                    )
+                    const ann = act.annotations.find(a => a.line === lineNum)
+                    const isHighlighted = ann && shownAnnotations.includes(lineNum)
                     return (
                       <div
                         key={lineNum}
-                        className={`code-typewriter__line-number${ann ? ` code-typewriter__line-number--${ann.type}` : ''}`}
+                        className={`code-typewriter__line-number${isHighlighted ? ` code-typewriter__line-number--${ann!.type}` : ''}`}
                       >
                         {lineNum}
                       </div>
@@ -206,19 +242,22 @@ export default function TheLab() {
         {/* statusbar */}
         <div className='code-typewriter__statusbar'>
           <span className='code-typewriter__status-item code-typewriter__status-item--branch'>
-            ⎇  feat/lab
+            ⎇  {currentBranch}
           </span>
           <span className='code-typewriter__status-item code-typewriter__status-item--message'>
-            {statusMessage}
+            {currentMessage}
           </span>
           <span className='code-typewriter__status-item code-typewriter__status-item--right'>
-            {act ? act.language : 'markdown'}
+            {langLabel}
           </span>
           {(phase === 'naive' || phase === 'expert') && (
             <span className='code-typewriter__status-item code-typewriter__status-item--right'>
-              Ln {lineCount}
+              Ln {lineCount}, Col {currentCol}
             </span>
           )}
+          <span className='code-typewriter__status-item code-typewriter__status-item--right'>
+            UTF-8  LF
+          </span>
         </div>
 
       </div>

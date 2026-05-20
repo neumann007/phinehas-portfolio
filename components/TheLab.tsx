@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { experiments } from '@/lib/lab-experiments'
 
 type Phase = 'brief' | 'naive' | 'expert' | 'verdict'
@@ -94,6 +94,8 @@ export default function TheLab() {
   const [displayed, setDisplayed] = useState('')
   const [visible, setVisible] = useState(true)
   const [shownAnnotations, setShownAnnotations] = useState<number[]>([])
+  const codeRef = useRef<HTMLElement>(null)
+  const [linePositions, setLinePositions] = useState<number[]>([])
 
   const exp = experiments[expIndex]
   const act = phase === 'naive' ? exp.naive : phase === 'expert' ? exp.expert : null
@@ -146,9 +148,37 @@ export default function TheLab() {
     return () => clearInterval(iv)
   }, [expIndex, phase]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Measure actual pixel positions of each line from the DOM
+  useEffect(() => {
+    if (!codeRef.current) return
+    const codeEl = codeRef.current
+    const text = codeEl.textContent || ''
+    const lines = text.split('\n')
+
+    const measurer = document.createElement('span')
+    measurer.style.cssText =
+      'position:absolute;visibility:hidden;white-space:pre;font-family:inherit;font-size:inherit;line-height:inherit;'
+    codeEl.appendChild(measurer)
+
+    const paddingTop = parseFloat(getComputedStyle(codeEl).paddingTop) || 0
+    const positions: number[] = [paddingTop]
+    let cumulative = paddingTop
+
+    for (let i = 0; i < lines.length - 1; i++) {
+      measurer.textContent = lines[i] || ' '
+      const lineH = measurer.getBoundingClientRect().height
+      cumulative += lineH
+      positions.push(cumulative)
+    }
+
+    codeEl.removeChild(measurer)
+    setLinePositions(positions)
+  }, [displayed])
+
   const displayedLines = displayed.split('\n')
   const lineCount = displayedLines.length
   const currentCol = displayedLines[displayedLines.length - 1].length + 1
+  const lineHeight = linePositions.length > 1 ? linePositions[1] - linePositions[0] : 22
 
   // Always derive status bar data from experiment's naive language
   const lang = exp.naive.language
@@ -219,6 +249,7 @@ export default function TheLab() {
                   <div
                     key={lineNum}
                     className={`code-typewriter__line-number${isHighlighted ? ` code-typewriter__line-number--${ann!.type}` : ''}`}
+                    style={{ height: lineHeight || '1.7em' }}
                   >
                     {lineNum}
                   </div>
@@ -232,10 +263,11 @@ export default function TheLab() {
                   <div
                     key={`hl-${i}`}
                     className={`code-typewriter__line-highlight code-typewriter__line-highlight--${ann.type}`}
-                    style={{ top: `calc(${ann.line - 1} * 1.7em)` }}
+                    style={{ top: linePositions[ann.line - 1] ?? 0, height: lineHeight }}
                   />
                 ))}
               <code
+                ref={codeRef}
                 className='code-typewriter__code'
                 dangerouslySetInnerHTML={{
                   __html:
@@ -249,7 +281,7 @@ export default function TheLab() {
                   <div
                     key={i}
                     className={`lab-annotation lab-annotation--${ann.type}`}
-                    style={{ top: `calc(${ann.line - 1} * 1.7em)` }}
+                    style={{ top: linePositions[ann.line - 1] ?? 0 }}
                   >
                     <span className='lab-annotation__icon'>
                       {ann.type === 'warning' ? '⚠' : '✦'}

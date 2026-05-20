@@ -3526,7 +3526,6 @@ a.link-muted:active,
 }
 
 .code-typewriter__line-number {
-  height: 1.7em;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -4251,7 +4250,6 @@ a.link-muted:active,
   position: absolute;
   left: 0;
   right: 0;
-  height: 1.7em;
   pointer-events: none;
   z-index: 0;
 }

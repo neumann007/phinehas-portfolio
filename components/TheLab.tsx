@@ -232,7 +232,7 @@ export default function TheLab() {
                   <div
                     key={`hl-${i}`}
                     className={`code-typewriter__line-highlight code-typewriter__line-highlight--${ann.type}`}
-                    style={{ top: `calc(${ann.line - 1} * 1.7em + 16px)` }}
+                    style={{ top: `calc(${ann.line - 1} * 1.7em)` }}
                   />
                 ))}
               <code
@@ -249,13 +249,24 @@ export default function TheLab() {
                   <div
                     key={i}
                     className={`lab-annotation lab-annotation--${ann.type}`}
-                    style={{ top: `calc(${ann.line - 1} * 1.7em + 16px)` }}
+                    style={{ top: `calc(${ann.line - 1} * 1.7em)` }}
                   >
                     <span className='lab-annotation__icon'>
                       {ann.type === 'warning' ? '⚠' : '✦'}
                     </span>
                     <span className='lab-annotation__short'>{ann.short}</span>
-                    <div className='lab-annotation__detail'>{ann.detail}</div>
+                    <div className='lab-annotation__detail'>
+                      <div className='lab-annotation__detail-header'>
+                        <span className='lab-annotation__detail-icon'>
+                          {ann.type === 'warning' ? '⚠' : '✦'}
+                        </span>
+                        <span className='lab-annotation__detail-title'>
+                          {ann.type === 'warning' ? 'Issue' : 'Insight'}
+                          {' · '}Line {ann.line}
+                        </span>
+                      </div>
+                      <p className='lab-annotation__detail-body'>{ann.detail}</p>
+                    </div>
                   </div>
                 ))}
             </div>

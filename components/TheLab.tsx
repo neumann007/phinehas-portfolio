@@ -123,20 +123,10 @@ export default function TheLab() {
   return (
     <section className="the-lab">
 
-      {/* tracker */}
+      {/* tag strip */}
       <div className="lab-tracker">
-        <span className="lab-tracker__counter">
-          {String(expIndex + 1).padStart(2, '0')} / {String(experiments.length).padStart(2, '0')}
-        </span>
+        <span className="lab-tracker__counter">The Lab</span>
         <span className="lab-tracker__tag">{exp.tag}</span>
-        <div className="lab-tracker__dots">
-          {experiments.map((_, i) => (
-            <span
-              key={i}
-              className={`lab-tracker__dot${i === expIndex ? ' lab-tracker__dot--active' : ''}`}
-            />
-          ))}
-        </div>
       </div>
 
       {/* IDE window */}

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Carousel from '@/components/Carousel'
-import CodeTypewriter from '@/components/CodeTypewriter'
+import TheLab from '@/components/TheLab'
 
 export default function Home() {
   return (
@@ -33,9 +33,9 @@ export default function Home() {
 
       <div className="divider" />
 
-      {/* CODE TYPEWRITER */}
+      {/* THE LAB */}
       <section className="home-typewriter-section">
-        <CodeTypewriter />
+        <TheLab />
       </section>
 
       <div className="divider" />

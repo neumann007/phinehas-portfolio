@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 
 const links = [
   { href: '/projects', label: 'Projects' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/deck', label: 'Deck' },
   { href: '/about', label: 'About' }
 ]
 
@@ -231,7 +231,8 @@ export default function Nav () {
           </nav>
 
           <div className='mobile-menu__footer'>
-            <p className='mono'>Open to work · 2026</p>
+            {/* <p className='mono'>Open to work</p> */}
+            <p className='mono'>2026</p>
             <a
               href='mailto:phinehasnewman@gmail.com'
               className='link-teal'

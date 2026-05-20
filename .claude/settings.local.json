@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(npx tsc *)",
-      "Bash(node -e \"require\\('@supabase/supabase-js'\\); console.log\\('ok'\\)\")"
+      "Bash(node -e \"require\\('@supabase/supabase-js'\\); console.log\\('ok'\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

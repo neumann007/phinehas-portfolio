@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Carousel from '@/components/Carousel'
+import CodeTypewriter from '@/components/CodeTypewriter'
 
 export default function Home() {
   return (
@@ -32,137 +33,36 @@ export default function Home() {
 
       <div className="divider" />
 
-      {/* WHAT I'M UP TO */}
-      <section className="section">
-        <p className="mono" style={{ marginBottom: '2.5rem' }}>What I&apos;m up to</p>
-        <div className="active-build">
-          <div className="active-build__header">
-            <div className="active-build__status">
-              <div className="active-build__dot" />
-              <span className="mono">Active build</span>
-            </div>
-            <span className="mono">scrive.dev</span>
-          </div>
-          <div className="active-build__body">
-            <div className="active-build__info">
-              <div>
-                <p className="mono mono--teal" style={{ marginBottom: '0.75rem' }}>
-                  Developer tool
-                </p>
-                <h3 className="heading-md" style={{ marginBottom: '1rem' }}>Scrive</h3>
-                <p className="text-body" style={{ maxWidth: '320px' }}>
-                  Visual project scaffolding. Design your architecture,
-                  choose your stack, set your conventions — download a
-                  production-ready project in seconds.
-                </p>
-              </div>
-              <div className="active-build__links">
-                <a
-                  href="https://scrive.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-teal"
-                >
-                  scrive.dev ↗
-                </a>
-                <span className="mono">In progress</span>
-              </div>
-            </div>
-            <div className="active-build__mockup">
-              <div className="browser-chrome">
-                <div className="browser-dot browser-dot--red" />
-                <div className="browser-dot browser-dot--yellow" />
-                <div className="browser-dot browser-dot--green" />
-                <div className="browser-url">scrive.dev</div>
-              </div>
-              <div className="browser-screen">
-                {[
-                  { top: '10%', left: '15%' },
-                  { top: '25%', left: '80%' },
-                  { top: '60%', left: '10%' },
-                  { top: '75%', left: '85%' },
-                  { top: '45%', left: '90%' },
-                  { top: '85%', left: '40%' },
-                ].map((p, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      position: 'absolute',
-                      width: '2px',
-                      height: '2px',
-                      borderRadius: '50%',
-                      background: '#2dd4bf',
-                      opacity: 0.25,
-                      top: p.top,
-                      left: p.left,
-                    }}
-                  />
-                ))}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
-                  <svg width="16" height="16" viewBox="0 0 28 28" fill="none">
-                    <rect x="0" y="0" width="8" height="8" fill="#2dd4bf"/>
-                    <rect x="10" y="0" width="8" height="8" fill="white" fillOpacity="0.15"/>
-                    <rect x="20" y="0" width="8" height="8" fill="white"/>
-                    <rect x="0" y="10" width="8" height="8" fill="white" fillOpacity="0.15"/>
-                    <rect x="10" y="10" width="8" height="8" fill="#2dd4bf"/>
-                    <rect x="20" y="10" width="8" height="8" fill="white" fillOpacity="0.15"/>
-                    <rect x="0" y="20" width="8" height="8" fill="white"/>
-                    <rect x="10" y="20" width="8" height="8" fill="white" fillOpacity="0.15"/>
-                    <rect x="20" y="20" width="8" height="8" fill="#2dd4bf"/>
-                  </svg>
-                  <span style={{ fontSize: '10px', fontWeight: 700, color: 'white', letterSpacing: '0.3em' }}>
-                    SCRIVE
-                  </span>
-                </div>
-                <p style={{ fontSize: '16px', fontWeight: 900, color: 'white', lineHeight: 1.1, marginBottom: '3px' }}>
-                  Before you build —
-                </p>
-                <p style={{ fontSize: '16px', fontWeight: 900, color: '#2dd4bf', lineHeight: 1.1, marginBottom: '1.25rem' }}>
-                  you scrive.
-                </p>
-                <div style={{ display: 'flex', width: '200px' }}>
-                  <div style={{ flex: 1, border: '0.5px solid #333', borderRight: 'none', padding: '6px 10px' }}>
-                    <span style={{ fontSize: '9px', color: '#555' }}>your@email.com</span>
-                  </div>
-                  <div style={{ background: '#2dd4bf', padding: '6px 10px' }}>
-                    <span style={{ fontSize: '9px', fontWeight: 700, color: '#000' }}>NOTIFY →</span>
-                  </div>
-                </div>
-                <p style={{ fontSize: '8px', color: '#444', marginTop: '6px', fontFamily: 'monospace' }}>
-                  Join 2 developers already waiting.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* CODE TYPEWRITER */}
+      <section className="home-typewriter-section">
+        <CodeTypewriter />
       </section>
 
       <div className="divider" />
 
-      {/* ECHOES */}
-      <section className="section">
-        <p className="mono" style={{ marginBottom: '2rem' }}>Echoes — leave your mark</p>
+      {/* THE DECK */}
+      {/* <section className="section">
+        <p className="mono" style={{ marginBottom: '2rem' }}>The Deck — leave your mark</p>
         <div className="echoes-section">
           <div className="echoes-section__content">
             <h2 className="heading-md" style={{ marginBottom: '1rem' }}>
               Everyone who visits
               <br />
-              <span className="teal">leaves a trace.</span>
+              <span className="teal">signs the wall.</span>
             </h2>
             <p className="text-body" style={{ maxWidth: '360px', marginBottom: '1.5rem' }}>
-              A living globe of signals. Drop your echo — what you&apos;re
-              building, what you can&apos;t stop thinking about. Find someone
-              on the other side of the world building what you&apos;re building.
+              A growing wall of signatures. Draw your name, leave a thought.
+              Find out who else has been here — and what they were thinking.
             </p>
-            <span className="link-teal" style={{ cursor: 'pointer' }}>
-              Drop your echo ↓
-            </span>
+            <a href="/deck" className="link-teal">
+              Sign the Deck ↓
+            </a>
           </div>
           <div className="echoes-placeholder">ECHOES GLOBE</div>
         </div>
       </section>
 
-      <div className="divider" />
+      <div className="divider" /> */}
 
       {/* SCRIVE TEASER */}
       <section className="scrive-teaser">

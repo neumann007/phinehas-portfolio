@@ -5,6 +5,20 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ['192.168.100.147'],
   images: {
     domains: []
+  },
+  async redirects() {
+    return [
+      {
+        source: '/blog',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/blog/:path*',
+        destination: '/',
+        permanent: false,
+      },
+    ]
   }
 }
 

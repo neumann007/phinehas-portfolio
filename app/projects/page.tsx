@@ -248,23 +248,24 @@ export default function Projects () {
       >
         <div className="projects-stats">
           <div className="projects-stats__item">
+            <span className="projects-stats__beacon projects-stats__beacon--green" />
             <span className="projects-stats__number">5</span>
             <span className="projects-stats__label">live</span>
           </div>
-          <span className="projects-stats__divider">·</span>
           <div className="projects-stats__item">
+            <span className="projects-stats__beacon projects-stats__beacon--amber" />
             <span className="projects-stats__number">3</span>
             <span className="projects-stats__label">in progress</span>
           </div>
-          <span className="projects-stats__divider">·</span>
           <div className="projects-stats__item">
-            <span className="projects-stats__number">Accra</span>
-            <span className="projects-stats__label">Ghana</span>
+            <span className="projects-stats__beacon projects-stats__beacon--teal" />
+            <span className="projects-stats__number">Accra, Ghana</span>
+            <span className="projects-stats__label">based in</span>
           </div>
-          <span className="projects-stats__divider">·</span>
-          <div className="projects-stats__item">
-            <span className="projects-stats__number">always</span>
-            <span className="projects-stats__label">building</span>
+          <div className="projects-stats__item projects-stats__item--right">
+            <span className="projects-stats__beacon projects-stats__beacon--purple" />
+            <span className="projects-stats__number">always building</span>
+            <span className="projects-stats__label">status</span>
           </div>
         </div>
       </section>

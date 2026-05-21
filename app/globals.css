@@ -121,7 +121,7 @@ h6 {
   z-index: 100;
   padding: 0 1.5rem;
   display: flex;
-  justify-content: stretch;
+  justify-content: center;
   pointer-events: none;
   width: 100%;
   box-sizing: border-box;
@@ -137,11 +137,11 @@ h6 {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 100%;
-  margin: 0;
+  max-width: 960px;
+  margin: 0 auto;
   box-sizing: border-box;
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 14px;
   background: rgba(235, 235, 240, 0.92) !important;
   backdrop-filter: blur(48px) saturate(200%) !important;
   -webkit-backdrop-filter: blur(48px) saturate(200%) !important;
@@ -1343,7 +1343,7 @@ h6 {
   }
   .nav-bar {
     padding: 8px 14px;
-    border-radius: 14px;
+    border-radius: 12px;
   }
   .nav-name {
     display: none;
@@ -1472,7 +1472,7 @@ h6 {
   }
   .nav-bar {
     padding: 8px 12px;
-    border-radius: 12px;
+    border-radius: 10px;
   }
   .nav-link {
     display: none;

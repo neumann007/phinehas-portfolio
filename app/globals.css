@@ -112,30 +112,54 @@ h6 {
   border-radius: 2px;
 }
 
-/* --- Nav ---------------------------------------------------- */
-.nav-bar {
+/* Nav wrapper — positioning only */
+.nav-wrapper {
   position: sticky;
-  top: 12px;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
+  padding: 12px 1.5rem;
+  pointer-events: none;
+}
+
+.nav-wrapper > * {
+  pointer-events: all;
+}
+
+/* Nav bar — frosted glass */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-radius: 20px;
   background: rgba(235, 235, 240, 0.88) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 20px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
   overflow: hidden;
+  position: relative;
 }
+
+.nav-bar > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Dark mode */
 [data-theme='dark'] .nav-bar,
 :root[data-theme='dark'] .nav-bar {
   background: rgba(14, 14, 20, 0.88) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
-  border-color: rgba(255,255,255,0.08);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-}
-.nav-bar * {
-  position: relative;
-  z-index: 2;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .nav-logo {
@@ -1305,6 +1329,9 @@ h6 {
 
 @media (max-width: 768px) {
   /* Nav */
+  .nav-wrapper {
+    padding: 10px 1rem;
+  }
   .nav-name {
     display: none;
   }

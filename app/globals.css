@@ -129,7 +129,7 @@ h6 {
   width: 100%;
   max-width: 920px;
   pointer-events: all;
-  border-radius: 14px;
+  border-radius: 20px;
   height: 48px;
   display: flex;
   align-items: center;
@@ -138,6 +138,11 @@ h6 {
   position: relative;
   overflow: hidden;
   transition: background 0.2s, box-shadow 0.2s;
+}
+
+.nav-bar > * {
+  position: relative;
+  z-index: 2;
 }
 
 .nav-bar::before {
@@ -180,27 +185,29 @@ h6 {
   -webkit-backdrop-filter: blur(23px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 58px 29px rgba(255, 255, 255, 0.29);
 }
 
 .nav-bar--dark {
-  background: rgba(7, 7, 10, 0.45);
+  background: rgba(7, 7, 10, 0.55);
   backdrop-filter: blur(23px);
   -webkit-backdrop-filter: blur(23px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02),
+    inset 0 0 58px 29px rgba(255, 255, 255, 0.01);
 }
 
 [data-theme='dark'] .nav-bar::before {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.07),
     transparent
   );
 }
@@ -604,6 +611,7 @@ h6 {
   position: relative;
   overflow: hidden;
   background: #020c06;
+  margin-top: 4rem;
 }
 
 .scrive-teaser__rays {
@@ -1652,11 +1660,11 @@ h6 {
 
 /* ── Nav scrolled state ───────────────────── */
 .nav-bar--scrolled.nav-bar--light {
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .nav-bar--scrolled.nav-bar--dark {
-  background: rgba(7, 7, 10, 0.72);
+  background: rgba(7, 7, 10, 0.75);
 }
 /* ── Desktop vs mobile nav links ──────────── */
 .nav-links--desktop {
@@ -3469,7 +3477,7 @@ a.link-muted:active,
 .home-typewriter-section {
   max-width: 960px;
   margin: 0 auto;
-  padding: 4rem 1.5rem;
+  padding: 4rem 1.5rem 6rem;
   width: 100%;
 }
 
@@ -4209,8 +4217,9 @@ a.link-muted:active,
 .lab-summary-card {
   border-radius: 12px;
   padding: 1.5rem;
-  animation: lab-summary-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: lab-summary-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   margin-top: 2rem;
+  opacity: 0;
 }
 .lab-summary-card--naive {
   background: rgba(245, 158, 11, 0.1);
@@ -4251,7 +4260,12 @@ a.link-muted:active,
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  opacity: 0;
+  animation: lab-summary-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
+.lab-summary-card__item:nth-child(1) { animation-delay: 0.15s; }
+.lab-summary-card__item:nth-child(2) { animation-delay: 0.3s; }
+.lab-summary-card__item:nth-child(3) { animation-delay: 0.45s; }
 .lab-summary-card__item-line {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -4289,8 +4303,16 @@ a.link-muted:active,
   opacity: 0.9;
 }
 @keyframes lab-summary-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
 }
 [data-theme='light'] .lab-summary-card__header {
   border-bottom-color: rgba(0, 0, 0, 0.06);

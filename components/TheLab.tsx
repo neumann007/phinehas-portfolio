@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { experiments } from '@/lib/lab-experiments'
 
 type Phase = 'brief' | 'naive' | 'expert' | 'verdict'
@@ -89,6 +89,15 @@ const branchByLang: Record<string, string[]> = {
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function TheLab() {
+  const shuffledExperiments = useMemo(() => {
+    const arr = [...experiments]
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    return arr
+  }, [])
+
   const [expIndex, setExpIndex] = useState(0)
   const [phase, setPhase] = useState<Phase>('brief')
   const [displayed, setDisplayed] = useState('')
@@ -100,7 +109,7 @@ export default function TheLab() {
   const [linePositions, setLinePositions] = useState<number[]>([])
   const summaryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const exp = experiments[expIndex]
+  const exp = shuffledExperiments[expIndex]
   const act = phase === 'naive' ? exp.naive : phase === 'expert' ? exp.expert : null
 
   const fadeIn = useCallback((cb: () => void) => {
@@ -128,7 +137,7 @@ export default function TheLab() {
     }
     if (phase === 'verdict') {
       const t = setTimeout(() => fadeIn(() => {
-        setExpIndex(i => (i + 1) % experiments.length)
+        setExpIndex(i => (i + 1) % shuffledExperiments.length)
         setPhase('brief')
       }), 10000)
       return () => clearTimeout(t)
@@ -215,12 +224,6 @@ export default function TheLab() {
   return (
     <section className="the-lab">
 
-      {/* tag strip — always visible */}
-      <div className="lab-tracker">
-        <span className="lab-tracker__counter">The Lab</span>
-        <span className="lab-tracker__tag">{exp.tag}</span>
-      </div>
-
       {/* brief card */}
       {phase === 'brief' && (
         <div className={`lab-card${cardVisible ? ' lab-card--visible' : ''}`}>
@@ -242,7 +245,6 @@ export default function TheLab() {
           </blockquote>
           <div className='lab-verdict-card__footer'>
             <span className='lab-verdict-card__tag'>{exp.tag}</span>
-            <span className='lab-verdict-card__next'>Next experiment →</span>
           </div>
         </div>
       )}
@@ -260,34 +262,6 @@ export default function TheLab() {
           <span className='lab-phase-cue__line' />
           <span className='lab-phase-cue__text'>Here's how a senior engineer rewrites it...</span>
           <span className='lab-phase-cue__line' />
-        </div>
-      )}
-
-      {/* summary card — auto-appears after all annotations shown */}
-      {showSummaryCard && (phase === 'naive' || phase === 'expert') && act && (
-        <div className={`lab-summary-card lab-summary-card--${phase}`}>
-          <div className='lab-summary-card__header'>
-            <span className='lab-summary-card__icon'>
-              {phase === 'naive' ? '⚠' : '✦'}
-            </span>
-            <span className='lab-summary-card__title'>
-              {phase === 'naive'
-                ? `${act.annotations.length} issues found in this implementation`
-                : `${act.annotations.length} engineering decisions that matter`
-              }
-            </span>
-          </div>
-          <ul className='lab-summary-card__list'>
-            {act.annotations.map((ann, i) => (
-              <li key={i} className='lab-summary-card__item'>
-                <span className='lab-summary-card__item-line'>L{ann.line}</span>
-                <div className='lab-summary-card__item-content'>
-                  <span className='lab-summary-card__item-short'>{ann.short}</span>
-                  <span className='lab-summary-card__item-detail'>{ann.detail}</span>
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
       )}
 
@@ -399,6 +373,34 @@ export default function TheLab() {
             </span>
           </div>
 
+        </div>
+      )}
+
+      {/* summary card — auto-appears after all annotations shown */}
+      {showSummaryCard && (phase === 'naive' || phase === 'expert') && act && (
+        <div className={`lab-summary-card lab-summary-card--${phase}`}>
+          <div className='lab-summary-card__header'>
+            <span className='lab-summary-card__icon'>
+              {phase === 'naive' ? '⚠' : '✦'}
+            </span>
+            <span className='lab-summary-card__title'>
+              {phase === 'naive'
+                ? `${act.annotations.length} issues found in this implementation`
+                : `${act.annotations.length} engineering decisions that matter`
+              }
+            </span>
+          </div>
+          <ul className='lab-summary-card__list'>
+            {act.annotations.map((ann, i) => (
+              <li key={i} className='lab-summary-card__item'>
+                <span className='lab-summary-card__item-line'>L{ann.line}</span>
+                <div className='lab-summary-card__item-content'>
+                  <span className='lab-summary-card__item-short'>{ann.short}</span>
+                  <span className='lab-summary-card__item-detail'>{ann.detail}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 

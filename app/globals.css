@@ -121,8 +121,10 @@ h6 {
   z-index: 100;
   padding: 0 1.5rem;
   display: flex;
-  justify-content: center;
+  justify-content: stretch;
   pointer-events: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .nav-wrapper > * {
@@ -134,14 +136,15 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 800px;
   width: 100%;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
   padding: 10px 20px;
   border-radius: 20px;
-  background: rgba(235, 235, 240, 0.88) !important;
-  backdrop-filter: blur(40px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+  background: rgba(235, 235, 240, 0.92) !important;
+  backdrop-filter: blur(48px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(48px) saturate(200%) !important;
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.08),
@@ -158,9 +161,9 @@ h6 {
 /* Dark mode */
 [data-theme='dark'] .nav-bar,
 :root[data-theme='dark'] .nav-bar {
-  background: rgba(14, 14, 20, 0.88) !important;
-  backdrop-filter: blur(40px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+  background: rgba(14, 14, 20, 0.92) !important;
+  backdrop-filter: blur(48px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(48px) saturate(200%) !important;
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),
@@ -1335,7 +1338,12 @@ h6 {
 @media (max-width: 768px) {
   /* Nav */
   .nav-wrapper {
-    padding: 10px 1rem;
+    padding: 0 1rem;
+    top: 8px;
+  }
+  .nav-bar {
+    padding: 8px 14px;
+    border-radius: 14px;
   }
   .nav-name {
     display: none;
@@ -1458,6 +1466,14 @@ h6 {
 }
 
 @media (max-width: 480px) {
+  .nav-wrapper {
+    padding: 0 0.75rem;
+    top: 6px;
+  }
+  .nav-bar {
+    padding: 8px 12px;
+    border-radius: 12px;
+  }
   .nav-link {
     display: none;
   }

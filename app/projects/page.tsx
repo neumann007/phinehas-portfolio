@@ -238,6 +238,37 @@ export default function Projects () {
           margin: '0 1.5rem'
         }}
       />
+      {/* Stats bar */}
+      <section
+        style={{
+          maxWidth: '960px',
+          margin: '0 auto',
+          padding: '2rem 1.5rem 0'
+        }}
+      >
+        <div className="projects-stats">
+          <div className="projects-stats__item">
+            <span className="projects-stats__number">5</span>
+            <span className="projects-stats__label">live</span>
+          </div>
+          <span className="projects-stats__divider">·</span>
+          <div className="projects-stats__item">
+            <span className="projects-stats__number">3</span>
+            <span className="projects-stats__label">in progress</span>
+          </div>
+          <span className="projects-stats__divider">·</span>
+          <div className="projects-stats__item">
+            <span className="projects-stats__number">Accra</span>
+            <span className="projects-stats__label">Ghana</span>
+          </div>
+          <span className="projects-stats__divider">·</span>
+          <div className="projects-stats__item">
+            <span className="projects-stats__number">always</span>
+            <span className="projects-stats__label">building</span>
+          </div>
+        </div>
+      </section>
+
       {/* Timeline */}
       <section
         style={{

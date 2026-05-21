@@ -25,30 +25,29 @@ export default function Home() {
           tools, and infrastructure across Django, FastAPI, React,
           Next.js, PostgreSQL, and DevOps.
         </p>
-        <div className="hero__actions">
+        {/* <div className="hero__actions">
           <Link href="/projects" className="link-teal">See my work ↓</Link>
           <Link href="/about" className="link-muted">About me →</Link>
-        </div>
+        </div> */}
       </section>
 
       <section className="lab-transition">
         <div className="lab-transition__inner">
-          <p className="lab-transition__eyebrow">The Lab</p>
+          {/* <p className="lab-transition__eyebrow">The Lab</p> */}
           <h2 className="lab-transition__heading">
-            Engineers don't just write code.<br />
+            An Engineer <br/> who doesn't just write code.<br />
             <span className="lab-transition__heading--accent">
-              We design the foundations of systems.
+              Designs the foundations of systems.
             </span>
           </h2>
           <p className="lab-transition__subtext">
-            The same problem. Two developers. Watch how experience
-            changes everything — from what works to what scales.
+            Watch how experience changes everything — from what works to what scales.
           </p>
-          <div className="lab-transition__divider">
+          {/* <div className="lab-transition__divider">
             <span className="lab-transition__divider-line" />
             <span className="lab-transition__divider-dot" />
             <span className="lab-transition__divider-line" />
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -57,7 +56,7 @@ export default function Home() {
         <TheLab />
       </section>
 
-      <div className="divider" />
+      {/* <div className="divider" /> */}
 
       {/* THE DECK */}
       {/* <section className="section">
@@ -139,7 +138,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="scrive-teaser__cta"
           >
-            Join the waitlist → scrive.dev
+            Join the waitlist →
           </a>
         </div>
       </section>

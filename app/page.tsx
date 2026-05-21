@@ -31,7 +31,26 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="divider" />
+      <section className="lab-transition">
+        <div className="lab-transition__inner">
+          <p className="lab-transition__eyebrow">The Lab</p>
+          <h2 className="lab-transition__heading">
+            Engineers don't just write code.<br />
+            <span className="lab-transition__heading--accent">
+              We design the foundations of systems.
+            </span>
+          </h2>
+          <p className="lab-transition__subtext">
+            The same problem. Two developers. Watch how experience
+            changes everything — from what works to what scales.
+          </p>
+          <div className="lab-transition__divider">
+            <span className="lab-transition__divider-line" />
+            <span className="lab-transition__divider-dot" />
+            <span className="lab-transition__divider-line" />
+          </div>
+        </div>
+      </section>
 
       {/* THE LAB */}
       <section className="home-typewriter-section">

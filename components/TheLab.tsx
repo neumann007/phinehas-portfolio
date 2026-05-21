@@ -93,9 +93,12 @@ export default function TheLab() {
   const [phase, setPhase] = useState<Phase>('brief')
   const [displayed, setDisplayed] = useState('')
   const [visible, setVisible] = useState(true)
+  const [cardVisible, setCardVisible] = useState(false)
   const [shownAnnotations, setShownAnnotations] = useState<number[]>([])
+  const [showSummaryCard, setShowSummaryCard] = useState(false)
   const codeRef = useRef<HTMLElement>(null)
   const [linePositions, setLinePositions] = useState<number[]>([])
+  const summaryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const exp = experiments[expIndex]
   const act = phase === 'naive' ? exp.naive : phase === 'expert' ? exp.expert : null
@@ -104,6 +107,16 @@ export default function TheLab() {
     setVisible(false)
     setTimeout(() => { cb(); setVisible(true) }, 450)
   }, [])
+
+  // Make card visible immediately after phase/experiment change
+  useEffect(() => {
+    setCardVisible(false)
+    const t = setTimeout(() => setCardVisible(true), 50)
+    return () => {
+      clearTimeout(t)
+      setCardVisible(false)
+    }
+  }, [phase, expIndex])
 
   // Brief + verdict hold timers
   useEffect(() => {
@@ -129,6 +142,7 @@ export default function TheLab() {
     const full = currentAct.code
     setDisplayed('')
     setShownAnnotations([])
+    setShowSummaryCard(false)
 
     let i = 0
     const iv = setInterval(() => {
@@ -138,6 +152,8 @@ export default function TheLab() {
         currentAct.annotations.forEach((ann, idx) => {
           setTimeout(() => setShownAnnotations(prev => [...prev, ann.line]), (idx + 1) * 650)
         })
+        const lastAnnDelay = (currentAct.annotations.length - 1) * 600 + 500
+        summaryTimerRef.current = setTimeout(() => setShowSummaryCard(true), lastAnnDelay + 1200)
         const next: Phase = phase === 'naive' ? 'expert' : 'verdict'
         setTimeout(() => fadeIn(() => setPhase(next)), 14000)
         return
@@ -145,7 +161,10 @@ export default function TheLab() {
       setDisplayed(full.slice(0, i))
     }, 120)
 
-    return () => clearInterval(iv)
+    return () => {
+      clearInterval(iv)
+      if (summaryTimerRef.current) clearTimeout(summaryTimerRef.current)
+    }
   }, [expIndex, phase]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Measure actual pixel positions of each line from the DOM
@@ -204,7 +223,7 @@ export default function TheLab() {
 
       {/* brief card */}
       {phase === 'brief' && (
-        <div className={`lab-card${visible ? ' lab-card--visible' : ''}`}>
+        <div className={`lab-card${cardVisible ? ' lab-card--visible' : ''}`}>
           <p className='lab-brief__num'>{exp.tag}</p>
           <h3 className='lab-brief__title'>{exp.title}</h3>
           <p className='lab-brief__text'>{exp.brief}</p>
@@ -241,6 +260,34 @@ export default function TheLab() {
           <span className='lab-phase-cue__line' />
           <span className='lab-phase-cue__text'>Here's how a senior engineer rewrites it...</span>
           <span className='lab-phase-cue__line' />
+        </div>
+      )}
+
+      {/* summary card — auto-appears after all annotations shown */}
+      {showSummaryCard && (phase === 'naive' || phase === 'expert') && act && (
+        <div className={`lab-summary-card lab-summary-card--${phase}`}>
+          <div className='lab-summary-card__header'>
+            <span className='lab-summary-card__icon'>
+              {phase === 'naive' ? '⚠' : '✦'}
+            </span>
+            <span className='lab-summary-card__title'>
+              {phase === 'naive'
+                ? `${act.annotations.length} issues found in this implementation`
+                : `${act.annotations.length} engineering decisions that matter`
+              }
+            </span>
+          </div>
+          <ul className='lab-summary-card__list'>
+            {act.annotations.map((ann, i) => (
+              <li key={i} className='lab-summary-card__item'>
+                <span className='lab-summary-card__item-line'>L{ann.line}</span>
+                <div className='lab-summary-card__item-content'>
+                  <span className='lab-summary-card__item-short'>{ann.short}</span>
+                  <span className='lab-summary-card__item-detail'>{ann.detail}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 

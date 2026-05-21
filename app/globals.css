@@ -139,19 +139,23 @@ h6 {
 }
 
 .nav-bar--light {
-  background: rgba(245, 245, 243, 0.85);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 0.5px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.07);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset;
 }
 
 .nav-bar--dark {
-  background: rgba(18, 18, 18, 0.85);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 0.5px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+  background: rgba(7, 7, 10, 0.55);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
 }
 
 .nav-logo {
@@ -1593,11 +1597,11 @@ h6 {
 
 /* ── Nav scrolled state ───────────────────── */
 .nav-bar--scrolled.nav-bar--light {
-  background: rgba(245, 245, 243, 0.95);
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .nav-bar--scrolled.nav-bar--dark {
-  background: rgba(18, 18, 18, 0.95);
+  background: rgba(7, 7, 10, 0.78);
 }
 /* ── Desktop vs mobile nav links ──────────── */
 .nav-links--desktop {

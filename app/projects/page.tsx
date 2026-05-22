@@ -248,24 +248,32 @@ export default function Projects () {
       >
         <div className="projects-stats">
           <div className="projects-stats__item">
-            <span className="projects-stats__beacon projects-stats__beacon--green" />
-            <span className="projects-stats__number">5</span>
+            <div className="projects-stats__beacon-wrap">
+              <span className="projects-stats__beacon projects-stats__beacon--green" />
+              <span className="projects-stats__number">5</span>
+            </div>
             <span className="projects-stats__label">live</span>
           </div>
           <div className="projects-stats__item">
-            <span className="projects-stats__beacon projects-stats__beacon--amber" />
-            <span className="projects-stats__number">3</span>
+            <div className="projects-stats__beacon-wrap">
+              <span className="projects-stats__beacon projects-stats__beacon--amber" />
+              <span className="projects-stats__number">3</span>
+            </div>
             <span className="projects-stats__label">in progress</span>
           </div>
           <div className="projects-stats__item">
-            <span className="projects-stats__beacon projects-stats__beacon--teal" />
-            <span className="projects-stats__number">Accra, Ghana</span>
+            <div className="projects-stats__beacon-wrap">
+              <span className="projects-stats__beacon projects-stats__beacon--teal" />
+              <span className="projects-stats__number">Accra</span>
+            </div>
             <span className="projects-stats__label">based in</span>
           </div>
           <div className="projects-stats__item projects-stats__item--right">
-            <span className="projects-stats__beacon projects-stats__beacon--purple" />
-            <span className="projects-stats__number">always building</span>
-            <span className="projects-stats__label">status</span>
+            <div className="projects-stats__beacon-wrap">
+              <span className="projects-stats__beacon projects-stats__beacon--purple" />
+              <span className="projects-stats__number">always</span>
+            </div>
+            <span className="projects-stats__label">building</span>
           </div>
         </div>
       </section>

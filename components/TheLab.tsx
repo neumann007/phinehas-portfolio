@@ -22,7 +22,12 @@ const KEYWORDS = new Set([
 ])
 
 function escapeHtml(s: string) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
 function highlightLine(line: string): string {
@@ -108,6 +113,7 @@ export default function TheLab() {
   const codeRef = useRef<HTMLElement>(null)
   const [linePositions, setLinePositions] = useState<number[]>([])
   const summaryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lineMeasurerRef = useRef<HTMLSpanElement | null>(null)
 
   const exp = shuffledExperiments[expIndex]
   const act = phase === 'naive' ? exp.naive : phase === 'expert' ? exp.expert : null
@@ -176,17 +182,27 @@ export default function TheLab() {
     }
   }, [expIndex, phase]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const displayedLines = displayed.split('\n')
+  const lineCount = displayedLines.length
+
   // Measure actual pixel positions of each line from the DOM
   useEffect(() => {
     if (!codeRef.current) return
     const codeEl = codeRef.current
     const text = codeEl.textContent || ''
     const lines = text.split('\n')
+    let measurer = lineMeasurerRef.current
 
-    const measurer = document.createElement('span')
-    measurer.style.cssText =
-      'position:absolute;visibility:hidden;white-space:pre;font-family:inherit;font-size:inherit;line-height:inherit;'
-    codeEl.appendChild(measurer)
+    if (!measurer) {
+      measurer = document.createElement('span')
+      measurer.style.cssText =
+        'position:absolute;visibility:hidden;white-space:pre;font-family:inherit;font-size:inherit;line-height:inherit;'
+      lineMeasurerRef.current = measurer
+    }
+
+    if (measurer.parentElement !== codeEl) {
+      codeEl.appendChild(measurer)
+    }
 
     const paddingTop = parseFloat(getComputedStyle(codeEl).paddingTop) || 0
     const positions: number[] = [paddingTop]
@@ -199,12 +215,19 @@ export default function TheLab() {
       positions.push(cumulative)
     }
 
-    codeEl.removeChild(measurer)
     setLinePositions(positions)
-  }, [displayed])
+  }, [lineCount])
 
-  const displayedLines = displayed.split('\n')
-  const lineCount = displayedLines.length
+  useEffect(() => {
+    return () => {
+      const measurer = lineMeasurerRef.current
+      if (measurer?.parentElement) {
+        measurer.parentElement.removeChild(measurer)
+      }
+      lineMeasurerRef.current = null
+    }
+  }, [])
+
   const currentCol = displayedLines[displayedLines.length - 1].length + 1
   const lineHeight = linePositions.length > 1 ? linePositions[1] - linePositions[0] : 22
 
@@ -316,6 +339,7 @@ export default function TheLab() {
                     style={{ top: linePositions[ann.line - 1] ?? 0, height: lineHeight }}
                   />
                 ))}
+              {/* Safe to inject: source text is developer-controlled in lib/lab-experiments.ts, and escapeHtml sanitizes tokens before highlight output. */}
               <code
                 ref={codeRef}
                 className='code-typewriter__code'

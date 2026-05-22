@@ -367,7 +367,7 @@ export default function About () {
       </div>
       {/* <div className="divider" /> */}
       {/* FLINT */}
-      <div className='about-section'>
+      {/* <div className='about-section'>
         <p className='mono' style={{ marginBottom: '1.5rem' }}>
           FLINT — Opportunity Finder
         </p>
@@ -400,7 +400,7 @@ export default function About () {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <div className="divider" /> */}
       {/* Contact */}
       <div className='about-section'>

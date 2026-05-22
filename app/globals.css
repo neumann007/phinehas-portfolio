@@ -4882,3 +4882,27 @@ a.link-muted:active,
   }
 }
 
+/* Hide injected 0x0 SVG sprites */
+body > svg[aria-hidden="true"],
+body > div > svg[aria-hidden="true"] {
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  display: block !important;
+  top: 0 !important;
+  left: 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Also fix the wrapper div if it has dimensions */
+body > div:has(> svg[aria-hidden="true"]) {
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+

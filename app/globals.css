@@ -1,8 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
 @import 'tailwindcss';
 
-html { background: #07070a; }
-body { background: #07070a; }
+html,
+body {
+  background-color: #f4f4f8;
+}
+
+html[data-theme='dark'],
+html.dark,
+[data-theme='dark'] body,
+:root[data-theme='dark'] body {
+  background-color: #09090f;
+}
 
 /* ── Variables ────────────────────────────── */
 :root {
@@ -50,7 +59,6 @@ html {
 }
 
 body {
-  background-color: #07070a;
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 15px;
@@ -65,18 +73,17 @@ body {
 
 html,
 body {
-  background-color: #07070a;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   min-height: 100vh;
 }
 
-[data-theme='dark'] html,
-[data-theme='dark'] body,
-html[data-theme='dark'],
-body[data-theme='dark'] {
-  background-color: #07070a !important;
+html {
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
 }
 
 a {
@@ -772,6 +779,8 @@ h6 {
 
 .projects-page,
 main:has(.projects-stats) {
+  margin-top: -72px;
+  padding-top: 72px;
   min-height: 100vh;
   background:
     radial-gradient(
@@ -798,30 +807,13 @@ main:has(.projects-stats) {
 }
 
 [data-theme='dark'] .projects-page,
-:root[data-theme='dark'] main:has(.projects-stats),
-[data-theme='dark'] main:has(.projects-stats) {
+[data-theme='dark'] main:has(.projects-stats),
+:root[data-theme='dark'] main:has(.projects-stats) {
   background:
-    radial-gradient(
-      ellipse 120% 60% at 50% 0%,
-      rgba(40, 35, 60, 0.5) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse 80% 40% at 0% 50%,
-      rgba(124, 92, 252, 0.07) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 80% 40% at 100% 50%,
-      rgba(0, 212, 255, 0.05) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 100% 60% at 50% 100%,
-      rgba(0, 0, 0, 0.4) 0%,
-      transparent 60%
-    ),
-    linear-gradient(180deg, #09090f 0%, #0b0b14 40%, #07070a 100%);
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(40, 35, 60, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 40% at 0% 50%, rgba(124, 92, 252, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 40% at 100% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 55%),
+    #09090f;
 }
 
 .timeline {
@@ -2973,6 +2965,8 @@ a.link-muted:active,
 }
 
 .deck-page {
+  margin-top: -72px;
+  padding-top: 72px;
   min-height: 100vh;
   width: 100%;
   position: relative;
@@ -2993,10 +2987,7 @@ a.link-muted:active,
     radial-gradient(ellipse 100% 50% at 50% 0%, rgba(30, 25, 50, 0.5) 0%, transparent 60%),
     radial-gradient(ellipse 70% 40% at 0% 100%, rgba(10, 10, 20, 0.6) 0%, transparent 55%),
     radial-gradient(ellipse 70% 40% at 100% 100%, rgba(10, 10, 20, 0.6) 0%, transparent 55%),
-    linear-gradient(180deg, #09090f 0%, #0a0a12 50%, #07070a 100%);
-  background-attachment: scroll;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+    #09090f;
 }
 
 

@@ -1,7 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
 @import 'tailwindcss';
 
-html { background: #07070a; }
+html {
+  background-color: #07070a;
+}
+
+html[data-theme='light'] {
+  background-color: #f0f1f3;
+}
+
 body { background: #07070a; }
 
 /* ── Variables ────────────────────────────── */

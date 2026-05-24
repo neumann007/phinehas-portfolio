@@ -10,10 +10,8 @@ html[data-theme='dark'],
 html.dark,
 [data-theme='dark'] body,
 :root[data-theme='dark'] body {
-  background-color: #09090f !important;
+  background-color: #09090f;
 }
-
-/* body { background: #07070a; } */
 
 /* ── Variables ────────────────────────────── */
 :root {
@@ -61,7 +59,6 @@ html {
 }
 
 body {
-  /* background-color: #07070a; */
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 15px;

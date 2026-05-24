@@ -1,8 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import Carousel from '@/components/Carousel'
-import CodeTypewriter from '@/components/CodeTypewriter'
+import TheLab from '@/components/TheLab'
 
 export default function Home() {
   return (
@@ -25,44 +24,26 @@ export default function Home() {
           tools, and infrastructure across Django, FastAPI, React,
           Next.js, PostgreSQL, and DevOps.
         </p>
-        <div className="hero__actions">
-          <Link href="/projects" className="link-teal">See my work ↓</Link>
-          <Link href="/about" className="link-muted">About me →</Link>
+      </section>
+
+      <section className="lab-transition">
+        <div className="lab-transition__inner">
+          <h2 className="lab-transition__heading">
+            An Engineer <br/> who doesn't just write code.<br />
+            <span className="lab-transition__heading--accent">
+              Designs the foundations of systems.
+            </span>
+          </h2>
+          <p className="lab-transition__subtext">
+            Watch how experience changes everything — from what works to what scales.
+          </p>
         </div>
       </section>
 
-      <div className="divider" />
-
-      {/* CODE TYPEWRITER */}
+      {/* THE LAB */}
       <section className="home-typewriter-section">
-        <CodeTypewriter />
+        <TheLab />
       </section>
-
-      <div className="divider" />
-
-      {/* THE DECK */}
-      {/* <section className="section">
-        <p className="mono" style={{ marginBottom: '2rem' }}>The Deck — leave your mark</p>
-        <div className="echoes-section">
-          <div className="echoes-section__content">
-            <h2 className="heading-md" style={{ marginBottom: '1rem' }}>
-              Everyone who visits
-              <br />
-              <span className="teal">signs the wall.</span>
-            </h2>
-            <p className="text-body" style={{ maxWidth: '360px', marginBottom: '1.5rem' }}>
-              A growing wall of signatures. Draw your name, leave a thought.
-              Find out who else has been here — and what they were thinking.
-            </p>
-            <a href="/deck" className="link-teal">
-              Sign the Deck ↓
-            </a>
-          </div>
-          <div className="echoes-placeholder">ECHOES GLOBE</div>
-        </div>
-      </section>
-
-      <div className="divider" /> */}
 
       {/* SCRIVE TEASER */}
       <section className="scrive-teaser">
@@ -120,7 +101,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="scrive-teaser__cta"
           >
-            Join the waitlist → scrive.dev
+            Join the waitlist →
           </a>
         </div>
       </section>

@@ -3,8 +3,6 @@ import { Plus_Jakarta_Sans, DM_Mono } from 'next/font/google'
 import './globals.css'
 import Nav from '../components/Nav'
 import { ThemeProvider } from '../components/ThemeProvider'
-import GlassFilter from '@/components/GlassFilter'
-import PageTransition from '@/components/PageTransition'
 
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -58,9 +56,7 @@ export default function RootLayout ({
   return (
     <html lang='en' className={`${plusJakarta.variable} ${dmMono.variable}`}>
       <body className='antialiased'>
-        <GlassFilter />
         <ThemeProvider>
-      <PageTransition />
           <Nav />
           {children}
         </ThemeProvider>

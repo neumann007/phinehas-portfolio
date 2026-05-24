@@ -11,6 +11,7 @@ const projects = [
     category: 'Blockchain · Healthcare',
     stack: ['Blockchain', 'Django', 'React', 'PostgreSQL'],
     year: '2024',
+    status: 'in-progress' as const,
     type: 'solo' as const,
     link: null
   },
@@ -22,6 +23,7 @@ const projects = [
     category: 'Python · Developer Tools',
     stack: ['Python', 'FastAPI', 'SDK'],
     year: '2024',
+    status: 'live' as const,
     type: 'collaborated' as const,
     link: 'https://vedatrace.dev'
   },
@@ -33,6 +35,7 @@ const projects = [
     category: 'TypeScript · AI Tools',
     stack: ['TypeScript', 'VS Code API'],
     year: '2025',
+    status: 'in-progress' as const,
     type: 'solo' as const,
     link: null
   },
@@ -44,6 +47,7 @@ const projects = [
     category: 'Developer Tool',
     stack: ['Next.js', 'TypeScript', 'Supabase'],
     year: '2025',
+    status: 'live' as const,
     type: 'solo' as const,
     link: 'https://scrive.dev'
   }
@@ -187,6 +191,11 @@ function ProjectCard ({
 }
 
 export default function Projects () {
+  const liveCount = projects.filter(project => project.status === 'live').length
+  const inProgressCount = projects.filter(project => project.status === 'in-progress').length
+  const basedIn = 'Accra'
+  const buildingState = inProgressCount > 0 ? 'always' : 'steady'
+
   return (
     <main style={{ paddingTop: '72px' }}>
       {/* Page header */}
@@ -197,7 +206,7 @@ export default function Projects () {
           padding: '4rem 1.5rem 3rem'
         }}
       >
-        <p
+        {/* <p
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '11px',
@@ -208,7 +217,7 @@ export default function Projects () {
           }}
         >
           Projects
-        </p>
+        </p> */}
         <h1
           style={{
             fontSize: 'clamp(28px, 4vw, 44px)',
@@ -232,12 +241,54 @@ export default function Projects () {
       </section>
       {/* Thin divider */}
       <div
+      className='divider'
         style={{
           height: '0.5px',
           background: 'var(--border)',
-          margin: '0 1.5rem'
+          // margin: '0 1.5rem'
         }}
       />
+      {/* Stats bar */}
+      <section
+        style={{
+          maxWidth: '960px',
+          margin: '0 auto',
+          padding: '2rem 1.5rem 0'
+        }}
+      >
+        <dl className="projects-stats">
+          <div className="projects-stats__item">
+            <div className="projects-stats__beacon-wrap">
+              <span aria-hidden="true" className="projects-stats__beacon projects-stats__beacon--green" />
+              <dd className="projects-stats__number">{liveCount}</dd>
+            </div>
+            <dt className="projects-stats__label">live</dt>
+          </div>
+          <div className="projects-stats__item">
+            <div className="projects-stats__beacon-wrap">
+              <span aria-hidden="true" className="projects-stats__beacon projects-stats__beacon--amber" />
+              <dd className="projects-stats__number">{inProgressCount}</dd>
+            </div>
+            <dt className="projects-stats__label">in progress</dt>
+          </div>
+          <div className="projects-stats__item">
+            <div className="projects-stats__beacon-wrap">
+              <span aria-hidden="true" className="projects-stats__beacon projects-stats__beacon--teal" />
+              <dd className="projects-stats__number">{basedIn}</dd>
+            </div>
+            <dt className="projects-stats__label">based in</dt>
+          </div>
+          {/* Reserved alignment hook for compact layouts when the final item needs right-edge tuning. */}
+          <div className="projects-stats__item projects-stats__item--right">
+            <div className="projects-stats__beacon-wrap">
+              <span aria-hidden="true" className="projects-stats__beacon projects-stats__beacon--purple" />
+              <dd className="projects-stats__number">{buildingState}</dd>
+            </div>
+            <dt className="projects-stats__label">building</dt>
+          </div>
+        </dl>
+      </section>
+
       {/* Timeline */}
       <section
         style={{

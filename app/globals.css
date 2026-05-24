@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
 @import 'tailwindcss';
 
-html {
-  background-color: #07070a;
+html,
+body {
+  background-color: #f4f4f8;
 }
 
-html[data-theme='light'] {
-  background-color: #f0f1f3;
+html[data-theme='dark'],
+body[data-theme='dark'],
+[data-theme='dark'] body {
+  background-color: #09090f !important;
 }
 
-body { background: #07070a; }
+/* body { background: #07070a; } */
 
 /* ── Variables ────────────────────────────── */
 :root {
@@ -57,7 +60,7 @@ html {
 }
 
 body {
-  background-color: #07070a;
+  /* background-color: #07070a; */
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 15px;
@@ -72,7 +75,7 @@ body {
 
 html,
 body {
-  background-color: #07070a;
+  /* background-color: #07070a; */
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -779,6 +782,8 @@ h6 {
 
 .projects-page,
 main:has(.projects-stats) {
+  margin-top: -72px;
+  padding-top: 72px;
   min-height: 100vh;
   background:
     radial-gradient(
@@ -2980,6 +2985,8 @@ a.link-muted:active,
 }
 
 .deck-page {
+  margin-top: -72px;
+  padding-top: 72px;
   min-height: 100vh;
   width: 100%;
   position: relative;

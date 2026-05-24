@@ -7,7 +7,9 @@ body {
 }
 
 html[data-theme='dark'],
-[data-theme='dark'] body {
+html.dark,
+[data-theme='dark'] body,
+:root[data-theme='dark'] body {
   background-color: #09090f !important;
 }
 
@@ -84,7 +86,7 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {
@@ -808,30 +810,13 @@ main:has(.projects-stats) {
 }
 
 [data-theme='dark'] .projects-page,
-:root[data-theme='dark'] main:has(.projects-stats),
-[data-theme='dark'] main:has(.projects-stats) {
+[data-theme='dark'] main:has(.projects-stats),
+:root[data-theme='dark'] main:has(.projects-stats) {
   background:
-    radial-gradient(
-      ellipse 120% 60% at 50% 0%,
-      rgba(40, 35, 60, 0.5) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse 80% 40% at 0% 50%,
-      rgba(124, 92, 252, 0.07) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 80% 40% at 100% 50%,
-      rgba(0, 212, 255, 0.05) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 100% 60% at 50% 100%,
-      rgba(0, 0, 0, 0.4) 0%,
-      transparent 60%
-    ),
-    linear-gradient(180deg, #09090f 0%, #0b0b14 40%, #07070a 100%);
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(40, 35, 60, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 40% at 0% 50%, rgba(124, 92, 252, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 40% at 100% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 55%),
+    #09090f;
 }
 
 .timeline {
@@ -3005,10 +2990,7 @@ a.link-muted:active,
     radial-gradient(ellipse 100% 50% at 50% 0%, rgba(30, 25, 50, 0.5) 0%, transparent 60%),
     radial-gradient(ellipse 70% 40% at 0% 100%, rgba(10, 10, 20, 0.6) 0%, transparent 55%),
     radial-gradient(ellipse 70% 40% at 100% 100%, rgba(10, 10, 20, 0.6) 0%, transparent 55%),
-    linear-gradient(180deg, #09090f 0%, #0a0a12 50%, #07070a 100%);
-  background-attachment: scroll;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+    #09090f;
 }
 
 
